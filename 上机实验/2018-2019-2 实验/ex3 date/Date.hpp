@@ -24,7 +24,7 @@ class Date{
 		int getYear() const;
 		int getMonth() const;
 		int getDay() const;
-		int getWeek() const;
+		int getWeek();
 		
 	private:
 		int year;
@@ -32,6 +32,7 @@ class Date{
 		int day;
 		
 		int isLeap();
+		int getMax();
 		
 		Date next(const Date&);
 		

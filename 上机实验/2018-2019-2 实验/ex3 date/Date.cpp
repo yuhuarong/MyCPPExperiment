@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "Date.hpp"
 #include "Circum.hpp" 
 using namespace std;
@@ -21,23 +22,23 @@ void Date::init(int year, int month, int day){
 }
 
 void Date::toString(){
-	cout<<"Date: "<<year<<"-"<<month<<"-"<<day<<" 星期"<<getWeek();
+	cout<<"Date: "<<year<<"-"<<month<<"-"<<day;//<<" 星期"<<getWeek();
 }
 
 int Date::diff(const Date& date){
 	int later=0;
 	if(this->year>date.getYear()){
-		later=0;
+		later=-1;
 	}else if(this->year<date.getYear()){
 		later=1;
 	}else{
 		if(this->month>date.getMonth()){
-			later=0;
+			later=-1;
 		}else if(this->month<date.getMonth()){
 			later=1;
 		}else{
 			if(this->day>date.getDay()){
-				later=0;
+				later=-1;
 			}else if(this->day<date.getDay()){
 				later=1;
 			}else{
@@ -63,11 +64,24 @@ int Date::diff(const Date& date){
 			n++;
 		}while(!(tDate.getYear()==this->getYear()&&tDate.getMonth()==this->getMonth()&&tDate.getDay()==this->getDay()));
 	}
-	return n;
+	return n*later;
 }
 
 void Date::showMonthTable(){
-	
+	toString();cout<<" 的当月日历 ："<<endl; 
+	cout<<"日    一    二    三    四    五    六"<<endl;
+	Date d;
+	d.init(year,month,1);
+	int week=d.getWeek();
+	for(int i=0;i<week;cout<<"      ",i++);
+	int i=1;
+	int max=d.getMax();
+	do{
+		cout.flags(ios::left);
+		cout<<setw(6)<<i++;
+		if((week+i)%7==1)cout<<"\n";
+	}while(i<=max);
+	cout<<endl;
 }
 
 void Date::setYear(int year){
@@ -106,8 +120,13 @@ int Date::setDay(int day){
 	return 0;
 }
 
-int Date::getWeek() const{
-	return 1;
+int Date::getWeek(){
+	Date date;
+	date.init(2019,3,11);
+	int delta=diff(date);
+	//cout<<" "<<delta;
+	
+	return delta<0?(-(delta%-7)+1):(7-delta%7)%7+1; 
 }
 
 int Date::getYear() const{
@@ -146,5 +165,19 @@ Date Date::next(const Date& d){
 	}
 	
 	return date; 
+}
+
+int Date::getMax(){
+	if(month==1||month==3||month==5||month==7||month==8||month==10||month==12){
+		return 31;
+	}else if(month==2){
+		if(isLeap()){
+			return 29;
+		}else{
+			return 28;
+		}
+	}else{
+		return 30;
+	}
 }
 
