@@ -2,36 +2,36 @@
 #include<cstring>
 using namespace std;
 
-int str_cmp(char *a,char *b){
-	for(int i=0;*(a+i)!='\0';i++){
-		if(*(a+i)>*(b+i)){
+int str_cmp(char *a,char *b,int n){
+	for(int i=0;i<n;i++){
+		
+		if(a[i]>b[i]){
 			return 1;
-		}else if(*(a+i)<*(b+i)){
+		}else if(a[i]<b[i]){
 			return -1; 
 		}
+		//cout<<"*"<<i<<" "<<a[i]<<" "<<b[i]<<endl;
 	}
 	return 0;
 }
 
 int cmp(char *a,char * b){
-	a[2]='\0';a[5]='\0';
-	b[2]='\0';b[5]='\0';
 	int i=0;
-	if(str_cmp(a+6,b+6)){
-		i = str_cmp(a+6,a+6);
+	if(str_cmp(a+6,b+6,4)!=0){
+		i = str_cmp(a+6,b+6,4);
+		//cout<<a+6<<b+6<<endl;
 	}else{
-		if(str_cmp(a+3,b+3)){
-			i = str_cmp(a+3,b+3);
+		if(str_cmp(a+3,b+3,2)!=0){
+			i = str_cmp(a+3,b+3,2);
 		}else{
-			if(str_cmp(a,b)){
-				i = str_cmp(a,b);
+			if(str_cmp(a,b,2)!=0){
+				i = str_cmp(a,b,2);
 			}else{
 				i = 0;
 			}
 		}
 	}
-	a[2]='/';a[5]='/';
-	b[2]='/';b[5]='/';
+	//cout<<i<<endl;
 	return i;
 }
 
