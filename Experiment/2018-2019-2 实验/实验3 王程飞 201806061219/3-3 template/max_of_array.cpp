@@ -3,16 +3,18 @@
 #include<algorithm>
 using namespace std;
 
-/*
+
 int max_of_array(int a[], int n){
 	sort(a,a+n);
+	cout<<"use int"<<endl; 
 	return a[n-1];
 }
-*/
+
 
 template<class T>
 T max_of_array(T a[],int n){
 	sort(a,a+n);
+	cout<<"use T"<<endl;
 	return a[n-1];
 }
 
