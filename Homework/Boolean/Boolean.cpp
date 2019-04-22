@@ -1,79 +1,75 @@
 #include<iostream>
+#include "Boolean.h"
 using namespace std;
 
-class Boolean {
-public:
-	Boolean() {
-		flag = 0;
-	}
-	Boolean(Boolean& b) {
-		flag = b.flag;
-	}
+ostream& operator<< (ostream& out, const Boolean& b) {
+	out << ((b.getFlag() != 0) ? "true" : "false");
+	return out;
+}
 
-	template<class T> Boolean(T flag) {
-		if (flag) {
-			this->flag = 1;
-		} else {
-			this->flag = 0;
-		}
-	}
+Boolean& operator&&(const Boolean& a, const Boolean& b) {
+	Boolean *c;
+	c = new Boolean(a.getFlag() && b.getFlag());
+	return *c;
+}
 
-	friend ostream& operator<<(ostream& out, const Boolean& b);
+Boolean& operator^(const Boolean& a, const Boolean& b) {
+	Boolean* c;
+	c = new Boolean( (a.getFlag() && !b.getFlag()) || (!a.getFlag() && b.getFlag()) );
+	return *c;
+}
 
-	int getFlag() const {
-		return flag;
-	}
+Boolean& operator||(const Boolean& a, const Boolean& b) {
+	Boolean* c;
+	c = new Boolean(a.getFlag() || b.getFlag());
+	return *c;
+}
 
-	void setFlag(int i) {
-		if (flag) {
-			this->flag = 1;
-		}
-		else {
-			this->flag = 0;
-		}
+Boolean& Boolean::operator= (const Boolean& b) {
+	flag = b.getFlag();
+	return *this;
+}
+
+Boolean& Boolean::operator= (bool b) {
+	flag = b;
+	return *this;
+}
+
+Boolean& Boolean::operator!() {
+	Boolean* a;
+	if (flag) {
+		a = new Boolean(0);
 	}
+	else
+	{
+		a = new Boolean(1);
+	}
+	return *a;
+}
+
+Boolean::Boolean(Boolean& b) {
+	flag = b.flag;
+}
 	
-	friend Boolean& operator^(const Boolean a, const Boolean b) {
-		Boolean* c;
-		c = new Boolean( (a.getFlag() && !b.getFlag()) || (!a.getFlag() && b.getFlag()) );
-		return *c;
-	}
+Boolean::Boolean() {
+	flag = 0;
+}
 
-	Boolean& operator!() {
-		Boolean* a;
-		if (flag) {
-			a = new Boolean(0);
-		}
-		else
-		{
-			a = new Boolean(1);
-		}
-		return *a;
+void Boolean::setFlag(int i) {
+	if (flag) {
+		this->flag = 1;
 	}
-
-	friend Boolean& operator&&(const Boolean& a, const Boolean& b) {
-		Boolean *c;
-		c = new Boolean(a.getFlag() && b.getFlag());
-		return *c;
+	else {
+		this->flag = 0;
 	}
+}
 
-	friend Boolean& operator||(const Boolean& a, const Boolean& b) {
-		Boolean* c;
-		c = new Boolean(a.getFlag() || b.getFlag());
-		return *c;
-	}
+Boolean::operator int(){
+	return flag;
+}
 
-	Boolean& operator= (const Boolean& b) {
-		flag = b.getFlag();
-		return *this;
-	}
+int Boolean::getFlag() const {
+	return flag;
+}
 
-	Boolean& operator= (bool b) {
-		flag = b;
-		return *this;
-	}
-
-private:
-	int flag;
-};
 

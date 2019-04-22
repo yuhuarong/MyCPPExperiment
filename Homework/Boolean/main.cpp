@@ -1,15 +1,9 @@
-//#include <iostream>
-#include "Boolean.cpp" 
-//using namespace std;
-
-ostream& operator<< (ostream& out, const Boolean& b) {
-	out << ((b.getFlag() != 0) ? "true" : "false");
-	return out;
-}
+#include "Boolean.h"
 
 int main() {
-	//cout << "helloworld" << endl;
 	Boolean a(0), b(1.10), c(a);
+	int n=a;
+	cout<<"n: "<<n<<endl;
 	cout << "a: " << a << " b: " << b << " c: " << c << endl;
 	a = true;
 	cout << "a: " << a << " b: " << b << " c: " << c << endl;
