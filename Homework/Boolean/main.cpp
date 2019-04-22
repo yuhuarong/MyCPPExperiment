@@ -1,8 +1,7 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-int main(){
-    cout<<"helloworld"<<endl;
-    char a[10];
-    cin>>a;
+int main() {
+	cout<<"helloworld"<<endl;
+	return 0;
 }
