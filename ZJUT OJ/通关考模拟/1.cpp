@@ -12,8 +12,6 @@ int main(){
 				cin>>a[i][j];
 			}
 		}
-		//cout<<"////"<<endl;
-		
 		for(int i=0;i<n;i++){
 			sort(a[i]+0,a[i]+4);
 			int b=a[i][0];int c=0;
@@ -30,9 +28,7 @@ int main(){
 					c=1;
 				} 
 			} 
-			//cout<<endl;
 		}
 		cout<<sum<<endl;
 	}
-	
 }
