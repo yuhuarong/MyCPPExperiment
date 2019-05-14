@@ -25,6 +25,9 @@ class Date{
 		int getMonth() const;
 		int getDay() const;
 		int getWeek();
+		Date(int y,int m,int d){
+			init(y,m,d);
+		}
 		
 	private:
 		int year;
