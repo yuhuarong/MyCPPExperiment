@@ -10,10 +10,10 @@ class Contract{
 			partyA="";
 			partyB="";
 			content="";
-			validStart=Date(1970,1,1);
-			validEnd=Date(1970,1,1);
+			validStart.init(1970,1,1);
+			validEnd.init(1970,1,1);
 			money=0;
-			signedDate=Date(1970,1,1);
+			signedDate.init(1970,1,1);
 		}
 		Contract(int id, string partyA, string partyB, string content, Date validStart, Date ValidEnd, double money, Date signedDate){
 			

@@ -4,9 +4,7 @@
 2）显示日期
 3）计算该日是星期几
 4）提供该月的月历显示
-5）计算与其他日期相差几天
-设计一个主函数演示这个类的操作
-思考：你设计的类还有什么不足之处？ -->不如Java 
+5）计算与其他日期相差几天 
 */
 
 class Date{
@@ -25,9 +23,6 @@ class Date{
 		int getMonth() const;
 		int getDay() const;
 		int getWeek();
-		Date(int y,int m,int d){
-			init(y,m,d);
-		}
 		
 	private:
 		int year;
