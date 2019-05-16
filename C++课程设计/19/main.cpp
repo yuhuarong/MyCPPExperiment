@@ -3,6 +3,10 @@
 #include "Contract.cpp"
 using namespace std;
 
+fstream file;
+char path[20];
+int hasFile=0;
+
 /*
  * 合同管理系统 
  */
@@ -20,7 +24,9 @@ int printMenu(){
 	cin>>code;
 	switch(code){
 		case '0':
-			
+			cout<<"输入文件名:"<<endl;
+			cin>>path;
+			file.open(path, ios::in);
 			break;
 		case '1':
 			break;
@@ -46,9 +52,7 @@ int printMenu(){
 } 
 
 int main() {
-	fstream file;
-	int hasFile=0;
-	
+
 	while(1){
 		printMenu();
 	}
