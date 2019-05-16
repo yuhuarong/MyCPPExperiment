@@ -1,25 +1,30 @@
 #include "Point.cpp"
 using namespace std;
 
-class Circle: public Point{
-	public:
-		Circle(float x=0, float y=0, float r=0):Point(x, y),radius(r){}
-		friend ostream& operator<<(ostream& out, const Circle& c){
-			out<<"Circle : "<<"("<<c.getX()<<", "<<c.getY()<<") radius = "<<c.radius<<endl;
-			return out;
+class Circle : public Point {
+public:
+	Circle(double x, double y, double r) :Point(x, y), radius(r) {}
+	friend ostream& operator<<(ostream& out, const Circle& c) {
+		out << "Circle : " << "(" << c.getX() << "," << c.getY() << ") radius = " << c.radius << endl;
+		return out;
+	}
+
+	double getRadius() {
+		return radius;
+	}
+
+	void setRadius(double r) {
+		if (r > 0) {
+			radius = r;
 		}
-		
-		float getRadius(){
-			return radius;
-		} 
-		
-		void setRadius(float r){
-			if(r>0){
-				radius=r;
-			} else {
-				radius=0;
-			}
+		else {
+			radius = 0;
 		}
-	private:
-		 float radius;
-}; 
+	}
+	
+	void modify(double delta){
+		radius+=delta;
+	} 
+private:
+	double radius;
+};
