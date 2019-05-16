@@ -1,25 +1,5 @@
-﻿  Circle.h
-  main.cpp
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Point.h(4): error C2011: “Point”:“class”类型重定义
-  C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Point.h(4): note: 参见“Point”的声明
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Square.h(4): error C2504: “Point”: 未定义基类
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Square.h(6): error C2614: “Square”: 非法的成员初始化:“Point”不是基或成员
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Square.h(8): error C2027: 使用了未定义类型“Point”
-  C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Point.h(4): note: 参见“Point”的声明
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Square.h(8): error C2039: “getX”: 不是“Square”的成员
-  C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Square.h(4): note: 参见“Square”的声明
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Square.h(8): error C2039: “getY”: 不是“Square”的成员
-  C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Square.h(4): note: 参见“Square”的声明
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Circle.h(4): error C2504: “Point”: 未定义基类
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Circle.h(6): error C2614: “Circle”: 非法的成员初始化:“Point”不是基或成员
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Circle.h(8): error C2027: 使用了未定义类型“Point”
-  C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Point.h(4): note: 参见“Point”的声明
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Circle.h(8): error C2039: “getX”: 不是“Circle”的成员
-  C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Circle.h(4): note: 参见“Circle”的声明
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Circle.h(8): error C2039: “getY”: 不是“Circle”的成员
-  C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Circle.h(4): note: 参见“Circle”的声明
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\main.cpp(7): error C2079: “a”使用未定义的 class“Point”
-C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\main.cpp(7): error C2440: “初始化”: 无法从“initializer list”转换为“int”
-  C:\Users\wcf\OneDrive\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\main.cpp(7): note: 初始值设定项包含过多元素
+﻿  main.cpp
+  Point.cpp
   Square.h
   正在生成代码...
+  Exp6.vcxproj -> C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验6 王程飞 201806061219\继承\Exp6\Debug\Exp6.exe
