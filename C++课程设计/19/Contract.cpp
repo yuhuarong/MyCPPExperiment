@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include "Date.hpp"
@@ -39,27 +40,26 @@ class Contract{
 		}
 		
 		friend ostream& operator<<(ostream& out, const Contract& contract){
-			out<<"ID: "<<contract.id<<' ';
-			out<<"甲方: "<<contract.partyA<<' ';
-			out<<"乙方: "<<contract.partyB<<' ';
-			out<<"内容: "<<contract.content<<' ';
-			out<<"开始日期: "<<contract.validStart<<' ';
-			out<<"结束日期: "<<contract.validEnd<<' ';
-			out<<"金额: "<<contract.money<<' ';
-			out<<"签订日期: "<<contract.signedDate<<endl;
+			out<<contract.id<<' ';
+			out<<contract.partyA<<' ';
+			out<<contract.partyB<<' ';
+			out<<contract.content<<' ';
+			out<<contract.validStart<<' ';
+			out<<contract.validEnd<<' ';
+			out<<contract.money<<' ';
+			out<<contract.signedDate<<endl;
 			return out;
 		}
 		
 		friend istream& operator>>(istream& in, Contract& contract){
-			int yyyy, MM, dd;
-			cout<<"ID: ";in>>contract.id;
-			cout<<"甲方: ";in>>contract.partyA;
-			cout<<"乙方: ";in>>contract.partyB;
-			cout<<"内容: ";in>>contract.content;
-			cout<<"开始日期(yyyy MM dd): ";in>>contract.validStart.year>>contract.validStart.month>>contract.validStart.day; 
-			cout<<"结束日期(yyyy MM dd): ";in>>contract.validEnd.year>>contract.validEnd.month>>contract.validEnd.day; 
-			cout<<"金额: ";in>>contract.money;
-			cout<<"签订日期(yyyy MM dd): ";in>>contract.signedDate.year>>contract.signedDate.month>>contract.signedDate.day; 
+			in>>contract.id;
+			in>>contract.partyA;
+			in>>contract.partyB;
+			in>>contract.content;
+			in>>contract.validStart.year>>contract.validStart.month>>contract.validStart.day; 
+			in>>contract.validEnd.year>>contract.validEnd.month>>contract.validEnd.day; 
+			in>>contract.money;
+			in>>contract.signedDate.year>>contract.signedDate.month>>contract.signedDate.day; 
 			return in;
 		}
 

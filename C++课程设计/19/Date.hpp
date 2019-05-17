@@ -1,3 +1,4 @@
+#pragma once
 #include<iostream>
 using namespace std;
 /*
@@ -27,6 +28,54 @@ class Date{
 		int getWeek();
 		
 		friend ostream& operator<<(ostream& out, const Date& date);
+		
+		int operator==(const Date& date){
+			if(this->year==date.year&&this->month==date.month&&this->day==date.day){
+				return 1;
+			}
+			
+			return 0;
+		}
+		
+		int operator>(const Date& date){
+			if(this->year>date.year){
+				return 1; 
+			} else if(this->year==date.year){
+				if(this->month>date.month){
+					return 1;
+				} else if(this->month==date.month){
+					if(this->day>date.day){
+						return 1;
+					} else {
+						return 0;
+					}
+				} else {
+					return 0;
+				}
+			} else {
+				return 0;
+			}
+		}
+		
+		int operator<(const Date& date){
+			if(this->year<date.year){
+				return 1; 
+			} else if(this->year==date.year){
+				if(this->month<date.month){
+					return 1;
+				} else if(this->month==date.month){
+					if(this->day<date.day){
+						return 1;
+					} else {
+						return 0;
+					}
+				} else {
+					return 0;
+				}
+			} else {
+				return 0;
+			}
+		}
 		
 		int year;
 		int month;
