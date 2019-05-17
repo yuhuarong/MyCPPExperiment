@@ -179,6 +179,6 @@ int Date::getMax(){
 }
 
 ostream& operator<<(ostream& out, const Date& date){
-	out<<date.getYear()<<'/'<<date.getMonth()<<'/'<<date.getDay();
+	out<<date.getYear()<<' '<<date.getMonth()<<' '<<date.getDay();
 	return out;
 }
