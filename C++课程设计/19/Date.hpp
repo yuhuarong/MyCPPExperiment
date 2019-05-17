@@ -1,3 +1,5 @@
+#include<iostream>
+using namespace std;
 /*
 日期类(Date)，包含年月日的信息
 1）日期信息设置
@@ -24,7 +26,8 @@ class Date{
 		int getDay() const;
 		int getWeek();
 		
-	private:
+		friend ostream& operator<<(ostream& out, const Date& date);
+		
 		int year;
 		int month;
 		int day;

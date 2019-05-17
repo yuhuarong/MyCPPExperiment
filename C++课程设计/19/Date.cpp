@@ -9,7 +9,6 @@ const int tDay=11;
 const int tWeek=1;
 
 void Date::init(){
-	cout<<"input yyyy:mm:dd"<<endl;
 	cin>>year>>month>>day;
 	init(year, month, day);
 }
@@ -87,12 +86,11 @@ void Date::setYear(int year){
 	this->year=year;
 }
 void Date::setMonth(int month){
-	if(month>12){
+	if(month<1||month>12){
 		this->month=1;
 	}else{
 		this->month=month;
 	}
-	
 }
 int Date::setDay(int day){
 	
@@ -180,4 +178,7 @@ int Date::getMax(){
 	}
 }
 
-
+ostream& operator<<(ostream& out, const Date& date){
+	out<<date.getYear()<<'/'<<date.getMonth()<<'/'<<date.getDay();
+	return out;
+}
