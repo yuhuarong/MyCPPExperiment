@@ -5,7 +5,30 @@
 #include<cstring>
 #include "Contract.cpp"
 #include "COntractUI.cpp"
+#include<algorithm>
 using namespace std;
+
+bool compare(const ContractUI& a, const ContractUI& b){
+	if(a.signedDate.getYear()>b.signedDate.getYear()){
+		return false;
+	} else if(a.signedDate.getYear()==b.signedDate.getYear()) {
+		if(a.signedDate.getMonth()>b.signedDate.getMonth()){
+			return false;
+		} else if(a.signedDate.getMonth()==b.signedDate.getMonth()) {
+			if(a.signedDate.getDay()>b.signedDate.getDay()){
+				return false;
+			} else if(a.signedDate.getDay()==b.signedDate.getDay()) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return true;
+		}
+	} else {
+		return true;
+	}
+} 
 
 /*
  * 合同管理系统 
@@ -261,7 +284,7 @@ int main() {
 											cin>>contracts[i].money;
 											break;
 										case '7':
-											cout<<"输入新的开始时间(yyyy MM dd): ";
+											cout<<"输入新的签订时间(yyyy MM dd): ";
 											contracts[i].signedDate.init();
 											break;
 										default:
@@ -274,8 +297,8 @@ int main() {
 								}
 							}
 							file<<contracts[i];
-							cout<<"修改成功"<<endl; 
 						}
+						
 						cout<<"---修改结束---"<<endl;
 						file.close(); 
 					} else {
@@ -319,6 +342,7 @@ int main() {
 					cout<<"1 输出某一天的"<<endl;
 					cout<<"2 输出到今天为止到期的"<<endl;
 					cout<<"3 输出这个月签订的合同"<<endl;
+					cout<<"4 根据甲方或乙方查询合同"<<endl; 
 					cout<<endl; 
 					cout<<"选择输出条件: ";
 					char inputCode;
@@ -351,24 +375,58 @@ int main() {
 								}
 							}
 							break;
-						case '3':
+						case '3':{
 							cout<<"输入当前日期(yyyy MM dd): ";
 							nowDate.init();
+							ContractUI cUI[50];
+							int sum=0; 
 							cout<<"文件保存的合同信息:"<<endl<<endl;
 							while(file>>mContract) {
 								if(mContract.signedDate.year==nowDate.year&&mContract.signedDate.month==nowDate.month){
 									mUI=mContract;
+//									cout<<mUI; 
+									cUI[sum]=mUI;
+									sum++;
+								}
+							}
+							cout<<"一共有 "<<sum<<" 条记录"<<endl; 
+							sort(cUI, cUI+sum, compare);
+							for(int k=0; k<sum; k++){
+								cout<<cUI[k];
+							} 
+							break;
+						}
+							
+						case '4':{
+							cout<<"输入要查询的甲方或乙方：";
+							string party;
+							cin>>party;
+							while(file>>mContract) {
+								if(mContract.partyA.compare(party)==0||mContract.partyB.compare(party)==0){
+									mUI=mContract;
 									cout<<mUI; 
 								}
 							}
-							break;
+							break; 
+						}
 						case '0':
-						default:
+						default:{
+							ContractUI cUI[50];
+							int sum=0; 
 							cout<<"文件保存的合同信息:"<<endl<<endl;
 							while(file>>mContract) {
 								mUI=mContract;
-								cout<<mUI; 
+//								cout<<mUI; 
+								cUI[sum]=mUI;
+								sum++;
 							}
+							cout<<"一共有 "<<sum<<" 条记录"<<endl; 
+							sort(cUI, cUI+sum, compare);
+							for(int k=0; k<sum; k++){
+								cout<<cUI[k];
+							} 
+							break;
+						}
 					} 
 					
 					cout<<endl<<"输出完成"<<endl; 
