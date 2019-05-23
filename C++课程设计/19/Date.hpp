@@ -28,6 +28,7 @@ class Date{
 		int getWeek();
 		
 		friend ostream& operator<<(ostream& out, const Date& date);
+		friend istream& operator>>(istream& in, Date& date);
 		
 		int operator==(const Date& date){
 			if(this->year==date.year&&this->month==date.month&&this->day==date.day){

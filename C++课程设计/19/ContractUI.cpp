@@ -34,10 +34,10 @@ class ContractUI: public Contract{
 			cout<<"甲方: ";in>>contract.partyA;
 			cout<<"乙方: ";in>>contract.partyB;
 			cout<<"内容: ";in>>contract.content;
-			cout<<"开始日期: ";in>>contract.validStart.year>>contract.validStart.month>>contract.validStart.day; 
-			cout<<"结束日期: ";in>>contract.validEnd.year>>contract.validEnd.month>>contract.validEnd.day; 
+			cout<<"开始日期(yyyy MM dd): ";in>>contract.validStart; 
+			cout<<"结束日期(yyyy MM dd): ";in>>contract.validEnd; 
 			cout<<"金额: ";in>>contract.money;
-			cout<<"签订日期: ";in>>contract.signedDate.year>>contract.signedDate.month>>contract.signedDate.day; 
+			cout<<"签订日期(yyyy MM dd): ";in>>contract.signedDate; 
 			return in;
 		}
 }; 

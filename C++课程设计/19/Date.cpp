@@ -182,3 +182,11 @@ ostream& operator<<(ostream& out, const Date& date){
 	out<<date.getYear()<<' '<<date.getMonth()<<' '<<date.getDay();
 	return out;
 }
+
+istream& operator>>(istream& in, Date& date){
+	int yyyy, MM, dd;
+	in>>yyyy>>MM>>dd;
+	date.setYear(yyyy);
+	date.setMonth(MM);
+	date.setDay(dd);
+}
