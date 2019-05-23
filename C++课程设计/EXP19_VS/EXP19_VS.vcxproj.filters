@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EXP19_VS.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Contract.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -27,12 +24,15 @@
     <ClCompile Include="Date.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="EXP19_CMS.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="EXP19_VS.h">
+    <ClInclude Include="EXP19_CMS.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -154,11 +154,11 @@
     <ClCompile Include="Contract.cpp" />
     <ClCompile Include="ContractUI.cpp" />
     <ClCompile Include="Date.cpp" />
-    <ClCompile Include="EXP19_VS.cpp" />
+    <ClCompile Include="EXP19_CMS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.hpp" />
-    <ClInclude Include="EXP19_VS.h" />
+    <ClInclude Include="EXP19_CMS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
