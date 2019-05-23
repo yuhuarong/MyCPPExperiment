@@ -6,17 +6,14 @@ using namespace std;
 1）日期信息设置
 2）显示日期
 3）计算该日是星期几
-4）提供该月的月历显示
-5）计算与其他日期相差几天 
+4）计算与其他日期相差几天 
 */
 
 class Date{
 	public:
 		void init();
 		void init(int, int, int);
-		void toString();
 		int diff(const Date& date);
-		void showMonthTable();
 		
 		void setYear(int);
 		void setMonth(int);

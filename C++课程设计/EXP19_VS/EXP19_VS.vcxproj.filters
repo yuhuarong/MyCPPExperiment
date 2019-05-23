@@ -32,5 +32,8 @@
     <ClInclude Include="Date.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="EXP19_VS.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

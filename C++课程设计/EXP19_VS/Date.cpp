@@ -19,10 +19,6 @@ void Date::init(int year, int month, int day){
 	setDay(day);
 }
 
-void Date::toString(){
-	cout<<"Date: "<<year<<"-"<<month<<"-"<<day;//<<" 星期"<<getWeek();
-}
-
 int Date::diff(const Date& date){
 	int later=0;
 	if(this->year>date.getYear()){
@@ -65,26 +61,10 @@ int Date::diff(const Date& date){
 	return n*later;
 }
 
-void Date::showMonthTable(){
-	toString();cout<<" 的当月日历 ："<<endl; 
-	cout<<"日    一    二    三    四    五    六"<<endl;
-	Date d;
-	d.init(year,month,1);
-	int week=d.getWeek();
-	for(int i=0;i<week;cout<<"      ",i++);
-	int i=1;
-	int max=d.getMax();
-	do{
-		cout.flags(ios::left);
-		cout<<setw(6)<<i++;
-		if((week+i)%7==1)cout<<"\n";
-	}while(i<=max);
-	cout<<endl;
-}
-
 void Date::setYear(int year){
 	this->year=year;
 }
+
 void Date::setMonth(int month){
 	if(month<1||month>12){
 		this->month=1;
@@ -92,6 +72,7 @@ void Date::setMonth(int month){
 		this->month=month;
 	}
 }
+
 int Date::setDay(int day){
 	
 	if(month==1||month==3||month==5||month==7||month==8||month==10||month==12){
