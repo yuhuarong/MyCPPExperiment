@@ -1,27 +1,24 @@
 ﻿  animal.cpp
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\animal.cpp(30): error C2065: “name”: 未声明的标识符
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\animal.cpp(33): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\string.h(133): note: 参见“strcpy”的声明
   debugging.cpp
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(11): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(11): warning C4183: “Person”: 缺少返回类型；假定为返回“int”的成员函数
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\debugging.cpp(16): error C2661: “Dog::Dog”: 没有重载函数接受 3 个参数
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\debugging.cpp(18): error C2143: 语法错误: 缺少“;”(在“常数”的前面)
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\debugging.cpp(18): error C2059: 语法错误:“)”
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\debugging.cpp(30): error C2679: 二进制“=”: 没有找到接受“Animal”类型的右操作数的运算符(或没有可接受的转换)
-  C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(16): note: 可能是“Dog &Dog::operator =(Dog &&)”
-  C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(16): note: 或    “Dog &Dog::operator =(const Dog &)”
-  C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\debugging.cpp(30): note: 尝试匹配参数列表“(Dog, Animal)”时
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(15): error C2061: 语法错误: 标识符“conat”
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(15): error C2805: 二进制“operator =”的参数太少
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(15): error C2333: “Dog::operator =”: 函数声明中有错误；跳过函数体
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\debugging.cpp(26): error C2679: 二进制“=”: 没有找到接受“Animal”类型的右操作数的运算符(或没有可接受的转换)
+  C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(21): note: 可能是“Dog &Dog::operator =(Dog &&)”
+  C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(21): note: 或    “Dog &Dog::operator =(const Dog &)”
+  C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\debugging.cpp(26): note: 尝试匹配参数列表“(Dog, Animal)”时
   dog.cpp
 C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(9): error C2504: “Animal”: 未定义基类
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(11): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(11): warning C4183: “Person”: 缺少返回类型；假定为返回“int”的成员函数
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.cpp(12): error C2511: “Dog::Dog(const int,const int,const char *)”:“Dog”中没有找到重载的成员函数
-  C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(9): note: 参见“Dog”的声明
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.cpp(13): error C2550: “Dog::{ctor}”: 构造函数初始值设定项列表只能在构造函数定义中使用
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.cpp(13): error C2597: 对非静态成员“Dog::name”的非法引用
-C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.cpp(15): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\string.h(133): note: 参见“strcpy”的声明
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(15): error C2061: 语法错误: 标识符“conat”
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(15): error C2805: 二进制“operator =”的参数太少
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.h(15): error C2333: “Dog::operator =”: 函数声明中有错误；跳过函数体
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.cpp(12): error C2614: “Dog”: 非法的成员初始化:“Animal”不是基或成员
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.cpp(13): error C2065: “name”: 未声明的标识符
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.cpp(15): error C2065: “name”: 未声明的标识符
+C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.cpp(19): error C2065: “name”: 未声明的标识符
 C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\dog.cpp(20): error C3861: “print”: 找不到标识符
-  EXP_7.cpp
   lion.cpp
 C:\Users\15331\Documents\GitHub\MyCPPExperiment\EXP\2018-2019(2) EXP\实验7 王程飞 201806061219\实验七 附件\EXP_7\EXP_7\lion.cpp(12): error C2614: “Lion”: 非法的成员初始化:“Animal”不是基或成员
   正在生成代码...

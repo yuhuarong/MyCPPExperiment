@@ -8,11 +8,9 @@ using std::endl;
 
 #include "dog.h"
 
-Dog::Dog( const int h, const int w, const char * n )
-   : Animal( h, w )
-{  strcpy( name, n ); }
+Dog::Dog(const int h, const int w, const char* n)
+	: Animal(h, w, n){}
 
-void Dog::setName( const char * n ) { strcpy( name, n ); }
 
 void Dog::Print() const
 {

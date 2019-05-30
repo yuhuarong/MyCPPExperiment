@@ -6,17 +6,18 @@
 
 class Animal {
 public:
-   Animal( const int = 0, const int = 0 );
+   Animal(const int, const int, char* name);
    void print() const;
    int getHeight() const;
    int getWeight() const;
    void setHeight( int );
    void setWeight( int );
    const char * getName() const;
+   void setName(const char* name);
 private:
    int height;
    int weight;
-   char* name;
+   char name[50];
 };
 
 #endif

@@ -12,8 +12,12 @@ public:
    Dog(){}
    void Print() const;
    void setName( const char * );
+   Dog& operator=(conat Animal& a) {
+	   setName(a.getName());
+	   this->setWeight(a.getWeight());
+	   this->setHeight(a.getHeight());
+   }
 private:
-   char name[ 30 ];
 };
 
 #endif
