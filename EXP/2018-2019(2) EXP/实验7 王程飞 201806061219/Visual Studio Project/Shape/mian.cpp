@@ -8,21 +8,29 @@ int main()
 	Circle circle(4, 5, 6), * cir;
 	Cylinder cyclinder(5, 6, 8), * cyl;
 
-	cout << point;
-	cout << circle;
-	cout << cyclinder;
+	cout << point << endl;
+	cout << circle << endl;
+	cout << cyclinder << endl;
 
 	p = &point;
 	cir = &circle;
 	cyl = &cyclinder;
-	cout << (*p);
-	cout << (*cir);
-	cout << (*cyl);
-
+	cout << (*p) << endl;
+	cout << (*cir) << endl;
+	cout << (*cyl) << endl;
 	
-	cir->area();
+	cout << cir->area() << endl;
 	cir = &cyclinder;
-	cir->area();
+	cout << cir->area() << endl;
+
+	p = &circle;
+	cout << p->area() << endl;
+	p = &cyclinder;
+	cout << p->area() << endl;
+	Point& p1 = circle;
+	cout << p1.area() << endl;
+	Point& p2 = cyclinder;
+	cout << p2.area() << endl;
 
 	return 0;
 }

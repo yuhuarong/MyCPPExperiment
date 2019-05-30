@@ -25,10 +25,7 @@
     <ClInclude Include="Shape.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Circle.cpp" />
-    <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="mian.cpp" />
-    <ClCompile Include="Point.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
