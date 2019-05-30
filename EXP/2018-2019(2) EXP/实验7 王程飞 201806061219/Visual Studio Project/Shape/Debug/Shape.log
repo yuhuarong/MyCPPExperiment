@@ -1,0 +1,8 @@
+﻿  Circle.cpp
+C:\Users\wcf\GitHub\Visual Studio Project\Shape\Circle.cpp(8): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+  Cylinder.cpp
+C:\Users\wcf\GitHub\Visual Studio Project\Shape\Cylinder.cpp(5): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+  mian.cpp
+C:\Users\wcf\GitHub\Visual Studio Project\Shape\mian.cpp(7): warning C4305: “参数”: 从“double”到“float”截断
+  正在生成代码...
+  Shape.vcxproj -> C:\Users\wcf\GitHub\Visual Studio Project\Transportation\Debug\Shape.exe
