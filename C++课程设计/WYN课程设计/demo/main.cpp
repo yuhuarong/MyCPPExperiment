@@ -2,8 +2,8 @@
 #include <conio.h>
 #include <stdio.h>
 
-#define PIC_HEIGHT 600
-#define PIC_WIDTH  800
+#define PIC_HEIGHT 800
+#define PIC_WIDTH  1280
 
 void FrameFun();									// 帧逻辑函数，处理每一帧的逻辑
 void RenderFun();									// 帧渲染函数，输出每一帧到显示设备
@@ -23,8 +23,8 @@ int main()
 {
 	// 初始化设备，加载图片
 	initgraph(PIC_WIDTH, PIC_HEIGHT);
-	SetWindowText(GetHWnd(), "Wave-水波纹效果（点击产生一个水波纹。移动鼠标连续产生水波纹）");
-	loadimage(&src_img, "water.jpg");		// 加载图片，大小：800*600
+	SetWindowText(GetHWnd(), "天上的星星和月亮");
+	loadimage(&src_img, "sky.jpg");		// 加载图片，大小：800*600
 	setbkmode(TRANSPARENT);
 	settextcolor(BLACK);
 	settextstyle(25, 0, "Arial");
