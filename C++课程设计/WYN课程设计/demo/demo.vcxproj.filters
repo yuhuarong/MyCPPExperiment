@@ -21,14 +21,29 @@
     <ClCompile Include="Shape.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Star.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sky.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Star.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sky.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="sky.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="moon.png">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

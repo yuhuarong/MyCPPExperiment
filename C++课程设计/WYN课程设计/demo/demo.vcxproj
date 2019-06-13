@@ -125,11 +125,16 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="Sky.cpp" />
+    <ClCompile Include="Star.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h" />
+    <ClInclude Include="Sky.h" />
+    <ClInclude Include="Star.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="moon.png" />
     <Image Include="sky.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

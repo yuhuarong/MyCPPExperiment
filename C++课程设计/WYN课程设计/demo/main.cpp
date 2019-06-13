@@ -1,6 +1,7 @@
 #include <graphics.h>     
 #include <conio.h>
-#include <stdio.h>
+#include <iostream>
+#include "Sky.h"
 
 #define PIC_HEIGHT 800
 #define PIC_WIDTH  1280
@@ -8,7 +9,7 @@
 void FrameFun();									// 帧逻辑函数，处理每一帧的逻辑
 void RenderFun();									// 帧渲染函数，输出每一帧到显示设备
 
-IMAGE src_img;										// 原位图		
+/*IMAGE src_img;	*/									// 原位图		
 IMAGE dest_img(PIC_WIDTH, PIC_HEIGHT);				// 处理后显示的位图
 DWORD* img_ptr1;									// 原图片片内存指针
 DWORD* img_ptr2;									// 处理后显示的位图内存指针
@@ -24,13 +25,13 @@ int main()
 	// 初始化设备，加载图片
 	initgraph(PIC_WIDTH, PIC_HEIGHT);
 	SetWindowText(GetHWnd(), "天上的星星和月亮");
-	loadimage(&src_img, "sky.jpg");		// 加载图片，大小：800*600
+	Sky sky=Sky::getInstance();
 	setbkmode(TRANSPARENT);
 	settextcolor(BLACK);
 	settextstyle(25, 0, "Arial");
 
 	// 获得内存指针
-	img_ptr1 = GetImageBuffer(&src_img);
+	/*img_ptr1 = GetImageBuffer(&src_img);*/
 	img_ptr2 = GetImageBuffer(&dest_img);
 
 	// 初始化波幅数组
