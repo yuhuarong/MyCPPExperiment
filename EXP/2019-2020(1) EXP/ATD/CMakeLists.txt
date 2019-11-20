@@ -3,4 +3,4 @@ project(ATD)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(ATD LinkedQueue.cpp)
+add_executable(ATD BinTree.cpp)
