@@ -47,47 +47,41 @@ public:
         for (int i = 0; i < index; i++) {
             node = node->next;
         }
-
         return node;
     }
 
-    int _size() {
+    int length() {
         return this->size;
     }
 
-    int _delete(Node* node) {
-        Node* _node = head;
-        if(size == 0) {
+    int remove(int index) {
+        if(index < 0 || index >= size) {
             return -1;
         }
 
-        if (node == head) {
-            Node* __node = head->next;
+        if (index == 0) {
+            Node* node = head->next;
             delete head;
-            head = __node;
+            head = node;
             size--;
             return 0;
-        } else {
-            Node* __node = head;
-            for (int i = 1; i < size; i++) {
-                if (node == _node) {
-                    __node->next = _node->next;
-                    delete _node;
-                    size--;
-                    return i;
-                } else {
-                    __node = _node;
-                    _node = _node->next;
-                }
-            }
+        } else if (index == size - 1) {
+            delete get(size-1);
+            size--;
+            return index;
         }
 
-        return -1;
+        Node* node = get(index-1);
+        Node* _node = node->next->next;
+        delete node->next;
+        node->next = _node;
+        size--;
+        return index;
     }
 
     void print() {
         for (int i = 0; i < size; i++) {
-            cout << get(i)->data << " ";
+            cout << get(i)->data;
         }
         cout << endl;
     }
@@ -95,9 +89,73 @@ public:
     ~LinkedList() {
         if (head != nullptr) {
             while(size) {
-                _delete(get(size-1));
-                print();
+                remove(0);
             }
         }
+    }
+};
+
+class BigInteger {
+public:
+    LinkedList number;
+    bool isPositive = false;
+    explicit BigInteger(const string& num): number(trim(num)) {}
+
+    string trim(const string& num) {
+        if (!check(num)) {
+            exit(12);
+        }
+        if (num[0] == '-') {
+            isPositive = false;
+            return num.substr(1);
+        } else if (num[0] == '+') {
+            isPositive = true;
+            return num.substr(1);
+        } else {
+            isPositive = true;
+            return num;
+        }
+    }
+    static bool check(const string& num) {
+        if (num.find_last_of("+-") != string::npos && num.find_last_of("+-") != 0) {
+            return false;
+        }
+        return num.find_last_not_of("0123456789") == 0 || num.find_last_not_of("0123456789") == string::npos;
+    }
+
+    void print() {
+        cout << (isPositive? '+' : '-');number.print();
+    }
+    int length() {
+        return number.length();
+    }
+    int getLow(int index) {
+        if (index < 0 || index > length() - 1) {
+            return -1;
+        }
+        return number.get(length()-index-1)->data;
+    }
+
+    int getHigh(int index) {
+        if (index < 0 || index > length() - 1) {
+            return -1;
+        }
+        return number.get(index)->data;
+    }
+
+    int removeLow(int index) {
+        if (index < 0 || index > length() - 1) {
+            return -1;
+        }
+        number.remove(length()-index-1);
+        return index;
+    }
+
+    int removeHigh(int index) {
+        if (index < 0 || index > length() - 1) {
+            return -1;
+        }
+        number.remove(index);
+        return index;
     }
 };
