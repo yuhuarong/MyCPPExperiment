@@ -73,8 +73,9 @@ public:
             size--;
             return 0;
         } else if (index == size - 1) {
-            delete get(size-1);
+            delete get(size - 1);
             size--;
+            get(size - 1)->next = nullptr;
             return index;
         }
 
@@ -250,30 +251,6 @@ public:
         }
     }
 
-    static void addLast(BigInteger& last, BigInteger& sum, int imp) {
-        while(last.length() > 0) {
-            int s = last.getLow(0);
-            sum.addHigh((s+imp)%10);
-            imp = (s+imp)/10;
-            last.removeLow(0);
-        }
-        sum.addHigh(imp);
-    }
-
-    static void subLast(BigInteger& last, BigInteger& result, int imp) {
-        while(last.length() > 0) {
-            int sub = last.getLow(0);
-            if ((sub+imp) < 0) {
-                result.addHigh(10+sub+imp);
-                imp = -1;
-            } else {
-                result.addHigh(sub+imp);
-                imp = 0;
-            }
-            last.removeLow(0);
-        }
-    }
-
     BigInteger& operator-(BigInteger& integer) {
         if (this->isPositive && integer.isPositive) {
             BigInteger i0 = this->clone().trim();
@@ -322,6 +299,84 @@ public:
             BigInteger i1 = integer.clone();
             BigInteger* result = &(-(i1+i0));
             return *result;
+        }
+    }
+
+    BigInteger& operator*(BigInteger& integer) {
+        if (this->isPositive && integer.isPositive) {
+            BigInteger i0 = this->clone().trim();
+            BigInteger i1 = integer.clone().trim();
+            auto* result = new BigInteger("0");
+            int size = i1.length();
+            for (int i = 0; i < size; i++) {
+                int e = i1.getLow(0);
+                BigInteger temp = singleMulti(i0, e);
+                temp.add0(i);
+                result = &(result->clone() + temp);
+                i1.removeLow(0);
+            }
+            result->trim();
+            return *result;
+        } else if (!this->isPositive && !integer.isPositive) {
+            BigInteger i0 = -this->clone();
+            BigInteger i1 = -integer.clone();
+            BigInteger* result = &(i1*i0);
+            return *result;
+        } else if (this->isPositive && !integer.isPositive) {
+            BigInteger i0 = this->clone();
+            BigInteger i1 = -integer.clone();
+            BigInteger* result = &(-(i0*i1));
+            return *result;
+        } else {
+            BigInteger i0 = -this->clone();
+            BigInteger i1 = integer.clone();
+            BigInteger* result = &(-(i0*i1));
+            return *result;
+        }
+    }
+
+    static BigInteger& singleMulti(BigInteger& integer, int e) {
+        auto* result = new BigInteger("0");
+        BigInteger temp = integer.clone();
+        int imp = 0;
+        while (temp.length() > 0) {
+            int mul = e * temp.getLow(0);
+            result->addHigh((mul + imp)%10);
+            imp = (mul + imp)/10;
+            temp.removeLow(0);
+        }
+        result->addHigh(imp);
+        result->removeLow(0);
+        return *result;
+    }
+
+    void add0(int num) {
+        for (int i = 0; i < num; i++) {
+            addLow(0);
+        }
+    }
+
+    static void addLast(BigInteger& last, BigInteger& result, int imp) {
+        while(last.length() > 0) {
+            int s = last.getLow(0);
+            result.addHigh((s + imp) % 10);
+            imp = (s+imp)/10;
+            last.removeLow(0);
+        }
+        result.addHigh(imp);
+    }
+
+    static void subLast(BigInteger& last, BigInteger& result, int imp) {
+        while(last.length() > 0) {
+            int sub = last.getLow(0);
+            if ((sub+imp) < 0) {
+                result.addHigh(10+sub+imp);
+                imp = -1;
+            } else {
+                result.addHigh(sub+imp);
+                imp = 0;
+            }
+            last.removeLow(0);
         }
     }
 
