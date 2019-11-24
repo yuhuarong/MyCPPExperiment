@@ -112,13 +112,16 @@ public:
 class BigInteger {
 public:
     LinkedList number;
+
     bool isPositive;
+
+    static const int m = 300;
 
     explicit BigInteger(const string &num) : number(trim(num)), isPositive(positive(num)) {}
 
     static string trim(const string &num) {
         if (!check(num)) {
-            cout << "数字格式错误" << endl;
+            cout << "number format error" << endl;
             exit(-1);
         }
         if (num[0] == '-') {
@@ -414,6 +417,29 @@ public:
         }
     }
 
+    BigInteger &operator^(BigInteger &integer) {
+        if (this->isPositive && integer.isPositive) {
+            BigInteger i0 = this->clone().trim();
+            BigInteger i1 = integer.clone().trim();
+            auto * result = new BigInteger("1");
+            while (!(i1 == *new BigInteger("0"))) {
+                if (i1.getLow(0)%2 == 1) {
+                    result = &((*result * i0) % genM(m));
+                }
+                i1 = i1 / *new BigInteger("2");
+                i0 = (i0 * i0) % genM(m);
+            }
+            result->trim();
+            return *result;
+        } else {
+            return *new BigInteger("0");
+        }
+    }
+
+    BigInteger& operator%(BigInteger& integer) {
+        return *this - (*this / integer) * integer;
+    }
+
     static BigInteger &singleMulti(BigInteger &integer, int e) {
         auto *result = new BigInteger("0");
         BigInteger temp = integer.clone();
@@ -433,6 +459,14 @@ public:
         for (int i = 0; i < num; i++) {
             addLow(0);
         }
+    }
+
+    static BigInteger& genM(int _m) {
+        auto* M = new BigInteger("1");
+        for (int i = 0; i < _m; i++) {
+            M->addLow(0);
+        }
+        return *M;
     }
 
     static void addLast(BigInteger &last, BigInteger &result, int imp) {
