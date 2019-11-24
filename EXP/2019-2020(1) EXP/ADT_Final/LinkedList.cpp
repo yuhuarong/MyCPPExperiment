@@ -335,6 +335,81 @@ public:
         }
     }
 
+    BigInteger& operator*(int e) {
+        if (this->isPositive && e > 0) {
+            BigInteger i0 = this->clone().trim();
+            return singleMulti(i0, e);
+        } else if (!this->isPositive && e < 0) {
+            BigInteger i0 = -this->clone();
+            BigInteger* result = &(i0*e);
+            return *result;
+        } else if (this->isPositive && e < 0) {
+            BigInteger i0 = this->clone();
+            BigInteger* result = &(-(i0*e));
+            return *result;
+        } else {
+            BigInteger i0 = -this->clone();
+            BigInteger* result = &(-(i0*e));
+            return *result;
+        }
+    }
+
+    BigInteger& operator/(BigInteger& integer) {
+        if (this->isPositive && integer.isPositive) {
+            if(integer == *new BigInteger("0")) {
+                cout << "please not divide with 0" << endl;
+                return *new BigInteger("0");
+            } else if (integer == *new BigInteger("1")) {
+                return this->clone();
+            } else if (*this < integer) {
+                return *new BigInteger("0");
+            }
+            BigInteger i0 = this->clone().trim();
+            BigInteger i1 = integer.clone().trim();
+            auto* result = new BigInteger("0");
+            auto* ent = new BigInteger("0");
+            while (i0.length() > 0) {
+                if (*ent < i1) {
+                    ent->addLow(i0.getHigh(0));
+                    result->addLow(0);
+                } else {
+                    for (int i = 1; i <= 10; i++) {
+                        if (*ent < i1 * i) {
+                            result->addLow(i - 1);
+                            ent = &(*ent - i1 * (i - 1));
+                            ent->addLow(i0.getHigh(0));
+                            break;
+                        }
+                    }
+                }
+                i0.removeHigh(0);
+            }
+            for (int i = 1; i <= 10; i++) {
+                if (*ent < i1 * i) {
+                    result->addLow(i - 1);
+                    break;
+                }
+            }
+            result->trim();
+            return *result;
+        } else if (!this->isPositive && !integer.isPositive) {
+            BigInteger i0 = -this->clone();
+            BigInteger i1 = -integer.clone();
+            BigInteger* result = &(i1/i0);
+            return *result;
+        } else if (this->isPositive && !integer.isPositive) {
+            BigInteger i0 = this->clone();
+            BigInteger i1 = -integer.clone();
+            BigInteger* result = &(-(i0/i1));
+            return *result;
+        } else {
+            BigInteger i0 = -this->clone();
+            BigInteger i1 = integer.clone();
+            BigInteger* result = &(-(i0/i1));
+            return *result;
+        }
+    }
+
     static BigInteger& singleMulti(BigInteger& integer, int e) {
         auto* result = new BigInteger("0");
         BigInteger temp = integer.clone();
@@ -422,14 +497,14 @@ public:
         BigInteger i0 = this->clone().trim();
         BigInteger i1 = integer.clone().trim();
         if (i0.length() != i1.length()) {
-            return true;
+            return false;
         } else {
             for (int i = 0; i < i0.length(); i++) {
                 if (this->getHigh(i) != integer.getHigh(i)) {
                     return false;
                 }
             }
-            return false;
+            return true;
         }
     }
 
