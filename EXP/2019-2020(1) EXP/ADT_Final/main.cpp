@@ -2,9 +2,11 @@
 #include "LinkedList.cpp"
 
 int main() {
-    BigInteger integer0("-92735182368912639126391263912123456");
-    BigInteger integer1("-7991232455167548748897589753419965692735182368912639126391263912123456");
-    BigInteger integer2 = integer1 + integer0;//124690
+    BigInteger integer0("-16273812947128946192461249128");
+    BigInteger integer1("34234324923749237492374927349723984792374");
+    integer0.print();
+    integer1.print();
+    BigInteger integer2 = integer0 - integer1;
     integer2.print();
     return 0;
 }

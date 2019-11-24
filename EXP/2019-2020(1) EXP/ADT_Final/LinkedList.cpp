@@ -211,8 +211,8 @@ public:
 
     BigInteger& operator+(BigInteger& integer) {
         if (this->isPositive && integer.isPositive) {
-            BigInteger i0 = this->clone();
-            BigInteger i1 = integer.clone();
+            BigInteger i0 = this->clone().trim();
+            BigInteger i1 = integer.clone().trim();
             auto* result = new BigInteger("0");
             int imp = 0;
             while (i0.length() > 0 && i1.length() > 0) {
@@ -260,13 +260,69 @@ public:
         sum.addHigh(imp);
     }
 
+    static void subLast(BigInteger& last, BigInteger& result, int imp) {
+        while(last.length() > 0) {
+            int sub = last.getLow(0);
+            if ((sub+imp) < 0) {
+                result.addHigh(10+sub+imp);
+                imp = -1;
+            } else {
+                result.addHigh(sub+imp);
+                imp = 0;
+            }
+            last.removeLow(0);
+        }
+    }
+
     BigInteger& operator-(BigInteger& integer) {
-        BigInteger i0 = this->clone();
-        BigInteger i1 = integer.clone();
-        auto* result = new BigInteger("0");
-
-
-        return *result;
+        if (this->isPositive && integer.isPositive) {
+            BigInteger i0 = this->clone().trim();
+            BigInteger i1 = integer.clone().trim();
+            if (i0 > i1) {
+                auto* result = new BigInteger("0");
+                int imp = 0;
+                while (i0.length() > 0 && i1.length() > 0) {
+                    int sub = i0.getLow(0)-i1.getLow(0);
+                    if (sub >= 0) {
+                        if ((sub+imp) < 0) {
+                            result->addHigh(10+sub+imp);
+                            imp = -1;
+                        } else {
+                            result->addHigh(sub+imp);
+                            imp = 0;
+                        }
+                    } else {
+                        result->addHigh(10+sub+imp);
+                        imp = -1;
+                    }
+                    i0.removeLow(0);
+                    i1.removeLow(0);
+                }
+                subLast(i0, *result, imp);
+                result->removeLow(0);
+                result->trim();
+                return *result;
+            } else if (i0 < i1){
+                return -(i1-i0);
+            } else {
+                return *new BigInteger("0");
+            }
+        } else if (!this->isPositive && !integer.isPositive) {
+            BigInteger i0 = -this->clone();
+            BigInteger i1 = -integer.clone();
+            BigInteger* result = &(-(i0-i1));
+            return *result;
+        } else if (this->isPositive && !integer.isPositive) {
+            BigInteger i0 = this->clone();
+            BigInteger i1 = -integer.clone();
+            BigInteger* result = &(i0+i1);
+            return *result;
+        } else {
+            BigInteger i0 = -this->clone();
+            BigInteger i1 = integer.clone();
+            BigInteger* result = &(-(i1+i0));
+            return *result;
+        }
     }
 
     bool operator>(BigInteger& integer) {
@@ -280,6 +336,8 @@ public:
             for (int i = 0; i < i0.length(); i++) {
                 if (i0.getHigh(i) > i1.getHigh(i)) {
                     return true;
+                } else if (i0.getHigh(i) < i1.getHigh(i)) {
+                    return false;
                 }
             }
             return false;
@@ -297,6 +355,8 @@ public:
             for (int i = 0; i < i0.length(); i++) {
                 if (i0.getHigh(i) < i1.getHigh(i)) {
                     return true;
+                } else if (i0.getHigh(i) > i1.getHigh(i)) {
+                    return false;
                 }
             }
             return false;
