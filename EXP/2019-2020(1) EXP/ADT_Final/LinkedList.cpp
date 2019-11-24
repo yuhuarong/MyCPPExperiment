@@ -26,6 +26,13 @@ public:
     explicit LinkedList(const string& num) {
         size = strlen(num.c_str());
         Node* _node = nullptr;
+
+        if(size == 0) {
+            _node = new Node(0);
+            head = _node;
+            size = 1;
+            return;
+        }
         for(char i : num) {
             if(head == nullptr) {
                 head = new Node(i-48);
@@ -80,6 +87,10 @@ public:
     }
 
     void print() {
+        if(head == nullptr) {
+            cout << 0 << endl;
+            return;
+        }
         for (int i = 0; i < size; i++) {
             cout << get(i)->data;
         }
@@ -98,24 +109,27 @@ public:
 class BigInteger {
 public:
     LinkedList number;
-    bool isPositive = false;
-    explicit BigInteger(const string& num): number(trim(num)) {}
+    bool isPositive;
+    explicit BigInteger(const string& num): number(trim(num)), isPositive(positive(num)) {}
 
-    string trim(const string& num) {
+    static string trim(const string& num) {
         if (!check(num)) {
-            exit(12);
+            cout << "数字格式错误" <<endl;
+            exit(-1);
         }
         if (num[0] == '-') {
-            isPositive = false;
             return num.substr(1);
         } else if (num[0] == '+') {
-            isPositive = true;
             return num.substr(1);
         } else {
-            isPositive = true;
             return num;
         }
     }
+
+    static bool positive(const string& num) {
+        return num[0] != '-';
+    }
+
     static bool check(const string& num) {
         if (num.find_last_of("+-") != string::npos && num.find_last_of("+-") != 0) {
             return false;
@@ -126,9 +140,23 @@ public:
     void print() {
         cout << (isPositive? '+' : '-');number.print();
     }
+
     int length() {
         return number.length();
     }
+
+    BigInteger& trim() {
+        while(number.head && number.head->data == 0) {
+            removeHigh(0);
+        }
+        Node* &head = number.head;
+        if(head == nullptr) {
+            head = new Node(0);
+            number.size++;
+        }
+        return *this;
+    }
+
     int getLow(int index) {
         if (index < 0 || index > length() - 1) {
             return -1;
@@ -158,4 +186,152 @@ public:
         number.remove(index);
         return index;
     }
+
+    int addHigh(int num) {
+        if(num < 0 || num > 9){
+            return -1;
+        }
+        Node* &head = number.head;
+        Node* _node = new Node(num);
+        _node->next = head;
+        head = _node;
+        number.size++;
+        return number.length();
+    }
+
+    int addLow(int num) {
+        if(num < 0 || num > 9){
+            return -1;
+        }
+        Node* tail = number.get(number.length()-1);
+        tail->next= new Node(num);
+        number.size++;
+        return number.size;
+    }
+
+    BigInteger& operator+(BigInteger& integer) {
+        if (this->isPositive && integer.isPositive) {
+            BigInteger i0 = this->clone();
+            BigInteger i1 = integer.clone();
+            auto* result = new BigInteger("0");
+            int imp = 0;
+            while (i0.length() > 0 && i1.length() > 0) {
+                int sum = i0.getLow(0)+i1.getLow(0);
+                result->addHigh((sum+imp)%10);
+                imp = (sum+imp)/10;
+                i0.removeLow(0);
+                i1.removeLow(0);
+            }
+            if (i0.length() > 0) {
+                addLast(i0, *result, imp);
+            } else if (i1.length() > 0) {
+                addLast(i1, *result, imp);
+            } else {
+                result->addHigh(imp);
+            }
+            result->removeLow(0);
+            result->trim();
+            return *result;
+        } else if(!this->isPositive && !integer.isPositive) {
+            BigInteger i0 = -this->clone();
+            BigInteger i1 = -integer.clone();
+            BigInteger* result = &(-(i0+i1));
+            return *result;
+        } else if(this->isPositive && !integer.isPositive) {
+            BigInteger i0 = this->clone();
+            BigInteger i1 = -integer.clone();
+            BigInteger* result = &(i0-i1);
+            return *result;
+        } else{
+            BigInteger i0 = -this->clone();
+            BigInteger i1 = integer.clone();
+            BigInteger* result = &(i1-i0);
+            return *result;
+        }
+    }
+
+    static void addLast(BigInteger& last, BigInteger& sum, int imp) {
+        while(last.length() > 0) {
+            int s = last.getLow(0);
+            sum.addHigh((s+imp)%10);
+            imp = (s+imp)/10;
+            last.removeLow(0);
+        }
+        sum.addHigh(imp);
+    }
+
+    BigInteger& operator-(BigInteger& integer) {
+        BigInteger i0 = this->clone();
+        BigInteger i1 = integer.clone();
+        auto* result = new BigInteger("0");
+
+
+        return *result;
+    }
+
+    bool operator>(BigInteger& integer) {
+        BigInteger i0 = this->clone().trim();
+        BigInteger i1 = integer.clone().trim();
+        if (i0.length() > i1.length()) {
+            return true;
+        } else if (i0.length() < i1.length()) {
+            return false;
+        } else {
+            for (int i = 0; i < i0.length(); i++) {
+                if (i0.getHigh(i) > i1.getHigh(i)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    bool operator<(BigInteger& integer) {
+        BigInteger i0 = this->clone().trim();
+        BigInteger i1 = integer.clone().trim();
+        if (i0.length() < i1.length()) {
+            return true;
+        } else if (i0.length() > i1.length()) {
+            return false;
+        } else {
+            for (int i = 0; i < i0.length(); i++) {
+                if (i0.getHigh(i) < i1.getHigh(i)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    bool operator==(BigInteger& integer) {
+        BigInteger i0 = this->clone().trim();
+        BigInteger i1 = integer.clone().trim();
+        if (i0.length() != i1.length()) {
+            return true;
+        } else {
+            for (int i = 0; i < i0.length(); i++) {
+                if (this->getHigh(i) != integer.getHigh(i)) {
+                    return false;
+                }
+            }
+            return false;
+        }
+    }
+
+    BigInteger& clone() {
+        Node* node = this->number.head;
+        auto* c = new BigInteger("");
+        while(node) {
+            c->addLow(node->data);
+            node = node->next;
+        }
+        c->isPositive = this->isPositive;
+        c->trim();
+        return *c;
+    }
+
+    BigInteger& operator-() {
+        this->isPositive = !this->isPositive;
+        return *this;
+    };
 };
