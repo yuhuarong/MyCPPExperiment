@@ -6,8 +6,9 @@ using namespace std;
 
 class Node {
 public:
-    Node* next;
+    Node *next;
     int data;
+
     explicit Node(int data) {
         this->data = data;
         this->next = nullptr;
@@ -16,29 +17,30 @@ public:
 
 class LinkedList {
 public:
-    Node* head = nullptr;
+    Node *head = nullptr;
     int size = 0;
+
     LinkedList() {
         size = 0;
         head = nullptr;
     }
 
-    explicit LinkedList(const string& num) {
+    explicit LinkedList(const string &num) {
         size = strlen(num.c_str());
-        Node* _node = nullptr;
+        Node *_node = nullptr;
 
-        if(size == 0) {
+        if (size == 0) {
             _node = new Node(0);
             head = _node;
             size = 1;
             return;
         }
-        for(char i : num) {
-            if(head == nullptr) {
-                head = new Node(i-48);
+        for (char i : num) {
+            if (head == nullptr) {
+                head = new Node(i - 48);
                 _node = head;
             } else {
-                Node* node = new Node(i-48);
+                Node *node = new Node(i - 48);
                 assert(_node != nullptr);
                 _node->next = node;
                 _node = node;
@@ -46,11 +48,11 @@ public:
         }
     }
 
-    Node* get(int index) {
+    Node *get(int index) {
         if (index < 0) {
             return nullptr;
         }
-        Node* node = this->head;
+        Node *node = this->head;
         for (int i = 0; i < index; i++) {
             node = node->next;
         }
@@ -62,12 +64,12 @@ public:
     }
 
     int remove(int index) {
-        if(index < 0 || index >= size) {
+        if (index < 0 || index >= size) {
             return -1;
         }
 
         if (index == 0) {
-            Node* node = head->next;
+            Node *node = head->next;
             delete head;
             head = node;
             size--;
@@ -79,8 +81,8 @@ public:
             return index;
         }
 
-        Node* node = get(index-1);
-        Node* _node = node->next->next;
+        Node *node = get(index - 1);
+        Node *_node = node->next->next;
         delete node->next;
         node->next = _node;
         size--;
@@ -88,7 +90,7 @@ public:
     }
 
     void print() {
-        if(head == nullptr) {
+        if (head == nullptr) {
             cout << 0 << endl;
             return;
         }
@@ -100,7 +102,7 @@ public:
 
     ~LinkedList() {
         if (head != nullptr) {
-            while(size) {
+            while (size) {
                 remove(0);
             }
         }
@@ -111,11 +113,12 @@ class BigInteger {
 public:
     LinkedList number;
     bool isPositive;
-    explicit BigInteger(const string& num): number(trim(num)), isPositive(positive(num)) {}
 
-    static string trim(const string& num) {
+    explicit BigInteger(const string &num) : number(trim(num)), isPositive(positive(num)) {}
+
+    static string trim(const string &num) {
         if (!check(num)) {
-            cout << "数字格式错误" <<endl;
+            cout << "数字格式错误" << endl;
             exit(-1);
         }
         if (num[0] == '-') {
@@ -127,11 +130,11 @@ public:
         }
     }
 
-    static bool positive(const string& num) {
+    static bool positive(const string &num) {
         return num[0] != '-';
     }
 
-    static bool check(const string& num) {
+    static bool check(const string &num) {
         if (num.find_last_of("+-") != string::npos && num.find_last_of("+-") != 0) {
             return false;
         }
@@ -139,19 +142,20 @@ public:
     }
 
     void print() {
-        cout << (isPositive? '+' : '-');number.print();
+        cout << (isPositive ? '+' : '-');
+        number.print();
     }
 
     int length() {
         return number.length();
     }
 
-    BigInteger& trim() {
-        while(number.head && number.head->data == 0) {
+    BigInteger &trim() {
+        while (number.head && number.head->data == 0) {
             removeHigh(0);
         }
-        Node* &head = number.head;
-        if(head == nullptr) {
+        Node *&head = number.head;
+        if (head == nullptr) {
             head = new Node(0);
             number.size++;
         }
@@ -162,7 +166,7 @@ public:
         if (index < 0 || index > length() - 1) {
             return -1;
         }
-        return number.get(length()-index-1)->data;
+        return number.get(length() - index - 1)->data;
     }
 
     int getHigh(int index) {
@@ -176,7 +180,7 @@ public:
         if (index < 0 || index > length() - 1) {
             return -1;
         }
-        number.remove(length()-index-1);
+        number.remove(length() - index - 1);
         return index;
     }
 
@@ -189,11 +193,11 @@ public:
     }
 
     int addHigh(int num) {
-        if(num < 0 || num > 9){
+        if (num < 0 || num > 9) {
             return -1;
         }
-        Node* &head = number.head;
-        Node* _node = new Node(num);
+        Node *&head = number.head;
+        Node *_node = new Node(num);
         _node->next = head;
         head = _node;
         number.size++;
@@ -201,25 +205,25 @@ public:
     }
 
     int addLow(int num) {
-        if(num < 0 || num > 9){
+        if (num < 0 || num > 9) {
             return -1;
         }
-        Node* tail = number.get(number.length()-1);
-        tail->next= new Node(num);
+        Node *tail = number.get(number.length() - 1);
+        tail->next = new Node(num);
         number.size++;
         return number.size;
     }
 
-    BigInteger& operator+(BigInteger& integer) {
+    BigInteger &operator+(BigInteger &integer) {
         if (this->isPositive && integer.isPositive) {
             BigInteger i0 = this->clone().trim();
             BigInteger i1 = integer.clone().trim();
-            auto* result = new BigInteger("0");
+            auto *result = new BigInteger("0");
             int imp = 0;
             while (i0.length() > 0 && i1.length() > 0) {
-                int sum = i0.getLow(0)+i1.getLow(0);
-                result->addHigh((sum+imp)%10);
-                imp = (sum+imp)/10;
+                int sum = i0.getLow(0) + i1.getLow(0);
+                result->addHigh((sum + imp) % 10);
+                imp = (sum + imp) / 10;
                 i0.removeLow(0);
                 i1.removeLow(0);
             }
@@ -233,43 +237,43 @@ public:
             result->removeLow(0);
             result->trim();
             return *result;
-        } else if(!this->isPositive && !integer.isPositive) {
+        } else if (!this->isPositive && !integer.isPositive) {
             BigInteger i0 = -this->clone();
             BigInteger i1 = -integer.clone();
-            BigInteger* result = &(-(i0+i1));
+            BigInteger *result = &(-(i0 + i1));
             return *result;
-        } else if(this->isPositive && !integer.isPositive) {
+        } else if (this->isPositive && !integer.isPositive) {
             BigInteger i0 = this->clone();
             BigInteger i1 = -integer.clone();
-            BigInteger* result = &(i0-i1);
+            BigInteger *result = &(i0 - i1);
             return *result;
-        } else{
+        } else {
             BigInteger i0 = -this->clone();
             BigInteger i1 = integer.clone();
-            BigInteger* result = &(i1-i0);
+            BigInteger *result = &(i1 - i0);
             return *result;
         }
     }
 
-    BigInteger& operator-(BigInteger& integer) {
+    BigInteger &operator-(BigInteger &integer) {
         if (this->isPositive && integer.isPositive) {
             BigInteger i0 = this->clone().trim();
             BigInteger i1 = integer.clone().trim();
             if (i0 > i1) {
-                auto* result = new BigInteger("0");
+                auto *result = new BigInteger("0");
                 int imp = 0;
                 while (i0.length() > 0 && i1.length() > 0) {
-                    int sub = i0.getLow(0)-i1.getLow(0);
+                    int sub = i0.getLow(0) - i1.getLow(0);
                     if (sub >= 0) {
-                        if ((sub+imp) < 0) {
-                            result->addHigh(10+sub+imp);
+                        if ((sub + imp) < 0) {
+                            result->addHigh(10 + sub + imp);
                             imp = -1;
                         } else {
-                            result->addHigh(sub+imp);
+                            result->addHigh(sub + imp);
                             imp = 0;
                         }
                     } else {
-                        result->addHigh(10+sub+imp);
+                        result->addHigh(10 + sub + imp);
                         imp = -1;
                     }
                     i0.removeLow(0);
@@ -279,34 +283,34 @@ public:
                 result->removeLow(0);
                 result->trim();
                 return *result;
-            } else if (i0 < i1){
-                return -(i1-i0);
+            } else if (i0 < i1) {
+                return -(i1 - i0);
             } else {
                 return *new BigInteger("0");
             }
         } else if (!this->isPositive && !integer.isPositive) {
             BigInteger i0 = -this->clone();
             BigInteger i1 = -integer.clone();
-            BigInteger* result = &(-(i0-i1));
+            BigInteger *result = &(-(i0 - i1));
             return *result;
         } else if (this->isPositive && !integer.isPositive) {
             BigInteger i0 = this->clone();
             BigInteger i1 = -integer.clone();
-            BigInteger* result = &(i0+i1);
+            BigInteger *result = &(i0 + i1);
             return *result;
         } else {
             BigInteger i0 = -this->clone();
             BigInteger i1 = integer.clone();
-            BigInteger* result = &(-(i1+i0));
+            BigInteger *result = &(-(i1 + i0));
             return *result;
         }
     }
 
-    BigInteger& operator*(BigInteger& integer) {
+    BigInteger &operator*(BigInteger &integer) {
         if (this->isPositive && integer.isPositive) {
             BigInteger i0 = this->clone().trim();
             BigInteger i1 = integer.clone().trim();
-            auto* result = new BigInteger("0");
+            auto *result = new BigInteger("0");
             int size = i1.length();
             for (int i = 0; i < size; i++) {
                 int e = i1.getLow(0);
@@ -320,43 +324,43 @@ public:
         } else if (!this->isPositive && !integer.isPositive) {
             BigInteger i0 = -this->clone();
             BigInteger i1 = -integer.clone();
-            BigInteger* result = &(i1*i0);
+            BigInteger *result = &(i1 * i0);
             return *result;
         } else if (this->isPositive && !integer.isPositive) {
             BigInteger i0 = this->clone();
             BigInteger i1 = -integer.clone();
-            BigInteger* result = &(-(i0*i1));
+            BigInteger *result = &(-(i0 * i1));
             return *result;
         } else {
             BigInteger i0 = -this->clone();
             BigInteger i1 = integer.clone();
-            BigInteger* result = &(-(i0*i1));
+            BigInteger *result = &(-(i0 * i1));
             return *result;
         }
     }
 
-    BigInteger& operator*(int e) {
+    BigInteger &operator*(int e) {
         if (this->isPositive && e > 0) {
             BigInteger i0 = this->clone().trim();
             return singleMulti(i0, e);
         } else if (!this->isPositive && e < 0) {
             BigInteger i0 = -this->clone();
-            BigInteger* result = &(i0*e);
+            BigInteger *result = &(i0 * e);
             return *result;
         } else if (this->isPositive && e < 0) {
             BigInteger i0 = this->clone();
-            BigInteger* result = &(-(i0*e));
+            BigInteger *result = &(-(i0 * e));
             return *result;
         } else {
             BigInteger i0 = -this->clone();
-            BigInteger* result = &(-(i0*e));
+            BigInteger *result = &(-(i0 * e));
             return *result;
         }
     }
 
-    BigInteger& operator/(BigInteger& integer) {
+    BigInteger &operator/(BigInteger &integer) {
         if (this->isPositive && integer.isPositive) {
-            if(integer == *new BigInteger("0")) {
+            if (integer == *new BigInteger("0")) {
                 cout << "please not divide with 0" << endl;
                 return *new BigInteger("0");
             } else if (integer == *new BigInteger("1")) {
@@ -366,8 +370,8 @@ public:
             }
             BigInteger i0 = this->clone().trim();
             BigInteger i1 = integer.clone().trim();
-            auto* result = new BigInteger("0");
-            auto* ent = new BigInteger("0");
+            auto *result = new BigInteger("0");
+            auto *ent = new BigInteger("0");
             while (i0.length() > 0) {
                 if (*ent < i1) {
                     ent->addLow(i0.getHigh(0));
@@ -395,29 +399,29 @@ public:
         } else if (!this->isPositive && !integer.isPositive) {
             BigInteger i0 = -this->clone();
             BigInteger i1 = -integer.clone();
-            BigInteger* result = &(i1/i0);
+            BigInteger *result = &(i0 / i1);
             return *result;
         } else if (this->isPositive && !integer.isPositive) {
             BigInteger i0 = this->clone();
             BigInteger i1 = -integer.clone();
-            BigInteger* result = &(-(i0/i1));
+            BigInteger *result = &(-(i0 / i1));
             return *result;
         } else {
             BigInteger i0 = -this->clone();
             BigInteger i1 = integer.clone();
-            BigInteger* result = &(-(i0/i1));
+            BigInteger *result = &(-(i0 / i1));
             return *result;
         }
     }
 
-    static BigInteger& singleMulti(BigInteger& integer, int e) {
-        auto* result = new BigInteger("0");
+    static BigInteger &singleMulti(BigInteger &integer, int e) {
+        auto *result = new BigInteger("0");
         BigInteger temp = integer.clone();
         int imp = 0;
         while (temp.length() > 0) {
             int mul = e * temp.getLow(0);
-            result->addHigh((mul + imp)%10);
-            imp = (mul + imp)/10;
+            result->addHigh((mul + imp) % 10);
+            imp = (mul + imp) / 10;
             temp.removeLow(0);
         }
         result->addHigh(imp);
@@ -431,31 +435,31 @@ public:
         }
     }
 
-    static void addLast(BigInteger& last, BigInteger& result, int imp) {
-        while(last.length() > 0) {
+    static void addLast(BigInteger &last, BigInteger &result, int imp) {
+        while (last.length() > 0) {
             int s = last.getLow(0);
             result.addHigh((s + imp) % 10);
-            imp = (s+imp)/10;
+            imp = (s + imp) / 10;
             last.removeLow(0);
         }
         result.addHigh(imp);
     }
 
-    static void subLast(BigInteger& last, BigInteger& result, int imp) {
-        while(last.length() > 0) {
+    static void subLast(BigInteger &last, BigInteger &result, int imp) {
+        while (last.length() > 0) {
             int sub = last.getLow(0);
-            if ((sub+imp) < 0) {
-                result.addHigh(10+sub+imp);
+            if ((sub + imp) < 0) {
+                result.addHigh(10 + sub + imp);
                 imp = -1;
             } else {
-                result.addHigh(sub+imp);
+                result.addHigh(sub + imp);
                 imp = 0;
             }
             last.removeLow(0);
         }
     }
 
-    bool operator>(BigInteger& integer) {
+    bool operator>(BigInteger &integer) {
         BigInteger i0 = this->clone().trim();
         BigInteger i1 = integer.clone().trim();
         if (i0.length() > i1.length()) {
@@ -474,7 +478,7 @@ public:
         }
     }
 
-    bool operator<(BigInteger& integer) {
+    bool operator<(BigInteger &integer) {
         BigInteger i0 = this->clone().trim();
         BigInteger i1 = integer.clone().trim();
         if (i0.length() < i1.length()) {
@@ -493,7 +497,7 @@ public:
         }
     }
 
-    bool operator==(BigInteger& integer) {
+    bool operator==(BigInteger &integer) {
         BigInteger i0 = this->clone().trim();
         BigInteger i1 = integer.clone().trim();
         if (i0.length() != i1.length()) {
@@ -508,10 +512,10 @@ public:
         }
     }
 
-    BigInteger& clone() {
-        Node* node = this->number.head;
-        auto* c = new BigInteger("");
-        while(node) {
+    BigInteger &clone() {
+        Node *node = this->number.head;
+        auto *c = new BigInteger("");
+        while (node) {
             c->addLow(node->data);
             node = node->next;
         }
@@ -520,7 +524,7 @@ public:
         return *c;
     }
 
-    BigInteger& operator-() {
+    BigInteger &operator-() {
         this->isPositive = !this->isPositive;
         return *this;
     };
