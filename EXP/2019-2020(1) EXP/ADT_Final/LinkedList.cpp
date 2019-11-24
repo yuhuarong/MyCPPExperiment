@@ -115,7 +115,7 @@ public:
 
     bool isPositive;
 
-    static const int m = 10;
+    static const int m = 150;
 
     explicit BigInteger(const string &num) : number(trim(num)), isPositive(positive(num)) {}
 
@@ -238,7 +238,7 @@ public:
                 result.addHigh(imp);
             }
             result.removeLow(0);
-            result.trim();
+//            // result.trim();
             return result.clone();
         } else if (!this->isPositive && !integer.isPositive) {
             BigInteger i0 = -this->clone();
@@ -284,7 +284,7 @@ public:
                 }
                 subLast(i0, result, imp);
                 result.removeLow(0);
-                result.trim();
+//                // result.trim();
                 return result.clone();
             } else if (i0 < i1) {
                 return -(i1 - i0);
@@ -323,7 +323,7 @@ public:
                 result = result + temp;
                 i1.removeLow(0);
             }
-            result.trim();
+            // result.trim();
             return result.clone();
         } else if (!this->isPositive && !integer.isPositive) {
             BigInteger i0 = -this->clone();
@@ -401,7 +401,7 @@ public:
                     break;
                 }
             }
-            result.trim();
+            // result.trim();
             return result.clone();
         } else if (!this->isPositive && !integer.isPositive) {
             BigInteger i0 = -this->clone();
@@ -435,7 +435,7 @@ public:
                 i1 = i1 / int2;
                 i0 = (i0 * i0) % m;
             }
-            result.trim();
+            // result.trim();
             return result.clone();
         } else {
             return int0.clone();
@@ -600,7 +600,7 @@ public:
                 i1 = i1 / int2;
                 i0 = (i0 * i0) % _m;
             }
-            result.trim();
+            // result.trim();
             return result.clone();
         } else {
             return int0.clone();
