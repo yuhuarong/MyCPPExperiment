@@ -39,6 +39,7 @@ int LinkedList::removeHigh() {
     } else if (size == 1) {
         int value = tail->data;
         delete tail;
+        head = tail = nullptr;
         size = 0;
         return value;
     } else {
@@ -58,6 +59,7 @@ int LinkedList::removeLow() {
     } else if (size == 1) {
         int value = head->data;
         delete head;
+        head = tail = nullptr;
         size = 0;
         return value;
     } else {
@@ -80,10 +82,10 @@ int LinkedList::addHigh(int e) {
         size = 1;
         return e;
     } else {
-        head->prev = new Node(e);
-        head->prev->next = head;
-        head = head->prev;
-        head->prev = nullptr;
+        tail->next = new Node(e);
+        tail->next->prev = tail;
+        tail = tail->next;
+        tail->next = nullptr;
         size++;
         return e;
     }
@@ -98,20 +100,26 @@ int LinkedList::addLow(int e) {
         size = 1;
         return e;
     } else {
-        tail->next = new Node(e);
-        tail->next->prev = tail;
-        tail = tail->next;
-        tail->next = nullptr;
+        head->prev = new Node(e);
+        head->prev->next = head;
+        head = head->prev;
+        head->prev = nullptr;
         size++;
         return e;
     }
 }
 
 int LinkedList::getHigh() {
+    if(tail == nullptr) {
+        return 0;
+    }
     return tail->data;
 }
 
 int LinkedList::getLow() {
+    if(head == nullptr) {
+        return 0;
+    }
     return head->data;
 }
 
@@ -124,10 +132,10 @@ LinkedList::LinkedList(LinkedList &list) {
             tail->next = nullptr;
         } else {
             Node *_node = new Node(node->data);
-            _node->next = head;
-            head->prev = _node;
-            head = _node;
-            head->prev = nullptr;
+            tail->next = _node;
+            _node->prev = tail;
+            tail = _node;
+            tail->next = nullptr;
         }
         node = node->next;
     }

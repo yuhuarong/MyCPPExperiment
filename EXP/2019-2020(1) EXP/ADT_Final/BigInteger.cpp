@@ -36,8 +36,8 @@ int BigInteger::length() {
 }
 
 BigInteger &BigInteger::trim() {
-    while (number.head && number.head->data == 0) {
-        number.removeLow();
+    while (number.tail && number.tail->data == 0) {
+        number.removeHigh();
     }
     return *this;
 }
@@ -392,8 +392,8 @@ bool BigInteger::operator==(BigInteger &integer) {
 }
 
 BigInteger &BigInteger::clone() {
-    Node *node = this->number.head;
     BigInteger &c = *new BigInteger("0");
+    c.isPositive = isPositive;
     c.number = *new LinkedList(number);
     return c;
 }
