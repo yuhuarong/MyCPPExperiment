@@ -63,10 +63,81 @@ public:
         } else {
             int value = tail->data;
             Node* t = tail->prev;
-            tail
-
+            delete tail;
+            size--;
+            tail = t;
+            tail->next = nullptr;
             return value;
         }
+    }
+
+    int removeLow() {
+        if (head == nullptr || tail == nullptr || size < 1) {
+            head = tail = new Node(0);
+            head->next = tail;
+            tail->prev = head;
+            head->prev = tail->next = nullptr;
+            size = 1;
+            return 0;
+        } else if (size == 1) {
+            int value = head->data;
+            head = tail = new Node(0);
+            head->prev = tail->next = nullptr;
+            size = 1;
+            return value;
+        } else {
+            int value = head->data;
+            Node* t = head->next;
+            delete head;
+            size--;
+            head = t;
+            head->prev = nullptr;
+            return value;
+        }
+    }
+
+    int addHigh(int e) {
+        if (head == nullptr || tail == nullptr || size < 1) {
+            head = tail = new Node(e);
+            head->next = tail;
+            tail->prev = head;
+            head->prev = tail->next = nullptr;
+            size = 1;
+            return e;
+        } else {
+            head->prev = new Node(e);
+            head->prev->next = head;
+            head = head->prev;
+            head->prev = nullptr;
+            size++;
+            return e;
+        }
+    }
+
+    int addLow(int e) {
+        if (head == nullptr || tail == nullptr || size < 1) {
+            head = tail = new Node(e);
+            head->next = tail;
+            tail->prev = head;
+            head->prev = tail->next = nullptr;
+            size = 1;
+            return e;
+        } else {
+            tail->next = new Node(e);
+            tail->next->prev = tail;
+            tail = tail->prev;
+            tail->next = nullptr;
+            size++;
+            return e;
+        }
+    }
+
+    int getHigh() {
+        return tail->data;
+    }
+
+    int getLow() {
+        return head->data;
     }
 
     LinkedList(LinkedList& list) {
@@ -84,23 +155,24 @@ public:
         }
     }
 
-    iostream& toString(iostream& out) {
-        if (head == nullptr) {
+    friend ostream& operator<<(ostream& out, LinkedList& list) {
+        if (list.head == nullptr) {
             out << 0;
-        }
-        Node* node = head;
-        while (node) {
-            out << node->data;
-            node = node->next;
+        } else {
+            Node* node = list.tail;
+            while (node) {
+                out << node->data;
+                node = node->prev;
+            }
         }
         return out;
     }
 
     ~LinkedList() {
-        if (head != nullptr) {
-            while (size) {
-                remove(0);
-            }
+        Node* node = head;
+        while (node) {
+            head = node->next;
+            delete node;
         }
     }
 };
