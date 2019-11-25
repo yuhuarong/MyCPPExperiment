@@ -68,25 +68,5 @@ public:
 
     static BigInteger &multiMod(const string &integer0, const string &integer1, int _m);
 
-    static BigInteger &powMod(const string &integer0, const string &integer1, int _m) {
-        BigInteger i0(integer0);
-        BigInteger i1(integer1);
-        BigInteger int0("0");
-        BigInteger int2("2");
-        if (i0.isPositive && i1.isPositive) {
-            BigInteger result("1");
-            i0 = i0 % _m;
-            while (i1 > int0) {
-                if (i1.number.getLow() % 2 == 1) {
-                    result = (result * i0) % _m;
-                }
-                i1 = i1 / int2;
-                i0 = (i0 * i0) % _m;
-            }
-            // result.trim();
-            return result.clone();
-        } else {
-            return int0.clone();
-        }
-    }
+    static BigInteger &powMod(const string &integer0, const string &integer1, int _m);
 };
