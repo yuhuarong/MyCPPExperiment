@@ -446,7 +446,7 @@ public:
             BigInteger result("1");
             i0 = i0 % _m;
             while (i1 > int0) {
-                if (i1._getLow(0) % 2 == 1) {
+                if (i1.number.getLow() % 2 == 1) {
                     result = (result * i0) % _m;
                 }
                 i1 = i1 / int2;
