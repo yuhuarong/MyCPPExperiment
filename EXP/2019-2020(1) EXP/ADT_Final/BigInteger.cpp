@@ -41,7 +41,7 @@ public:
 
     void print() {
         cout << (isPositive ? '+' : '-');
-        number.print();
+        number.toString();
     }
 
     int length() {
@@ -60,7 +60,7 @@ public:
         return *this;
     }
 
-    int getLow(int index) {
+    int _getLow(int index) {
         if (index < 0 || index > length() - 1) {
             return -1;
         }
@@ -90,24 +90,24 @@ public:
         return index;
     }
 
+    //finish
     int addHigh(int num) {
         if (num < 0 || num > 9) {
             return -1;
         }
-        Node *&head = number.head;
         Node *_node = new Node(num);
-        _node->next = head;
-        head = _node;
+        _node->next = nullptr;
+        number.get(number.size - 1)->next = _node;
         number.size++;
         return number.length();
     }
 
+    //finish
     int addLow(int num) {
         if (num < 0 || num > 9) {
             return -1;
         }
-        Node *tail = number.get(number.length() - 1);
-        tail->next = new Node(num);
+        number.head = new Node(num);
         number.size++;
         return number.size;
     }
@@ -119,7 +119,7 @@ public:
             BigInteger result("0");
             int imp = 0;
             while (i0.length() > 0 && i1.length() > 0) {
-                int sum = i0.getLow(0) + i1.getLow(0);
+                int sum = i0._getLow(0) + i1._getLow(0);
                 result.addHigh((sum + imp) % 10);
                 imp = (sum + imp) / 10;
                 i0.removeLow(0);
@@ -161,7 +161,7 @@ public:
                 BigInteger result("0");
                 int imp = 0;
                 while (i0.length() > 0 && i1.length() > 0) {
-                    int sub = i0.getLow(0) - i1.getLow(0);
+                    int sub = i0._getLow(0) - i1._getLow(0);
                     if (sub >= 0) {
                         if ((sub + imp) < 0) {
                             result.addHigh(10 + sub + imp);
@@ -212,7 +212,7 @@ public:
             BigInteger result("0");
             int size = i1.length();
             for (int i = 0; i < size; i++) {
-                int e = i1.getLow(0);
+                int e = i1._getLow(0);
                 BigInteger temp = singleMulti(i0, e);
                 temp.add0(i);
                 result = result + temp;
@@ -324,7 +324,7 @@ public:
         if (i0.isPositive && i1.isPositive) {
             BigInteger result("1");
             while (i1 > int0) {
-                if (i1.getLow(0) % 2 == 1) {
+                if (i1._getLow(0) % 2 == 1) {
                     result = ((result.clone() * i0) % m);
                 }
                 i1 = i1 / int2;
@@ -354,7 +354,7 @@ public:
         BigInteger temp = integer.clone();
         int imp = 0;
         while (temp.length() > 0) {
-            int mul = e * temp.getLow(0);
+            int mul = e * temp._getLow(0);
             result.addHigh((mul + imp) % 10);
             imp = (mul + imp) / 10;
             temp.removeLow(0);
@@ -372,7 +372,7 @@ public:
 
     static void addLast(BigInteger &last, BigInteger &result, int imp) {
         while (last.length() > 0) {
-            int s = last.getLow(0);
+            int s = last._getLow(0);
             result.addHigh((s + imp) % 10);
             imp = (s + imp) / 10;
             last.removeLow(0);
@@ -382,7 +382,7 @@ public:
 
     static void subLast(BigInteger &last, BigInteger &result, int imp) {
         while (last.length() > 0) {
-            int sub = last.getLow(0);
+            int sub = last._getLow(0);
             if ((sub + imp) < 0) {
                 result.addHigh(10 + sub + imp);
                 imp = -1;
@@ -489,7 +489,7 @@ public:
             BigInteger result("1");
             i0 = i0 % _m;
             while (i1 > int0) {
-                if (i1.getLow(0) % 2 == 1) {
+                if (i1._getLow(0) % 2 == 1) {
                     result = (result * i0) % _m;
                 }
                 i1 = i1 / int2;

@@ -6,90 +6,94 @@
 #include <cassert>
 using namespace std;
 
-
 class LinkedList {
 public:
     Node *head = nullptr;
+    Node *tail = nullptr;
     int size = 0;
 
     LinkedList() {
         size = 0;
-        head = nullptr;
+        head = tail = nullptr;
     }
 
+    //创建逆序链表
     explicit LinkedList(const string &num) {
         size = strlen(num.c_str());
         Node *_node = nullptr;
 
         if (size == 0) {
             _node = new Node(0);
-            head = _node;
+            head = tail = _node;
+            head->next = tail;
+            tail->prev = head;
+            head->prev = tail->next = nullptr;
             size = 1;
             return;
         }
-        for (char i : num) {
+        for (int i = 0; i < size; i++) {
+            int b = num[size - i - 1] - 48;
             if (head == nullptr) {
-                head = new Node(i - 48);
-                _node = head;
+                head = tail = new Node(b);
+                head->prev = tail->next = nullptr;
             } else {
-                Node *node = new Node(i - 48);
-                assert(_node != nullptr);
-                _node->next = node;
-                _node = node;
+                Node *node = new Node(b);
+                node->prev = nullptr;
+                node->next = head;
+                head->prev = node;
+                head = node;
             }
         }
     }
 
-    Node *get(int index) {
-        if (index < 0) {
-            return nullptr;
+    int removeHigh() {
+        if (head == nullptr || tail == nullptr || size < 1) {
+            head = tail = new Node(0);
+            head->next = tail;
+            tail->prev = head;
+            head->prev = tail->next = nullptr;
+            size = 1;
+            return 0;
+        } else if (size == 1) {
+            int value = tail->data;
+            head = tail = new Node(0);
+            head->prev = tail->next = nullptr;
+            size = 1;
+            return value;
+        } else {
+            int value = tail->data;
+            Node* t = tail->prev;
+            tail
+
+            return value;
         }
-        Node *node = this->head;
-        for (int i = 0; i < index; i++) {
+    }
+
+    LinkedList(LinkedList& list) {
+        Node* node = list.head;
+        while(node) {
+            if (head == nullptr) {
+                head = tail = new Node(node->data);
+                tail->next = nullptr;
+            } else {
+                Node *_node = new Node(node->data);
+                _node->next = head;
+                head = _node;
+            }
             node = node->next;
         }
-        return node;
     }
 
-    int length() {
-        return this->size;
-    }
-
-    int remove(int index) {
-        if (index < 0 || index >= size) {
-            return -1;
-        }
-
-        if (index == 0) {
-            Node *node = head->next;
-            delete head;
-            head = node;
-            size--;
-            return 0;
-        } else if (index == size - 1) {
-            delete get(size - 1);
-            size--;
-            get(size - 1)->next = nullptr;
-            return index;
-        }
-
-        Node *node = get(index - 1);
-        Node *_node = node->next->next;
-        delete node->next;
-        node->next = _node;
-        size--;
-        return index;
-    }
-
-    void print() {
+    iostream& toString(iostream& out) {
         if (head == nullptr) {
-            cout << 0 << endl;
-            return;
+            out << 0;
         }
-        for (int i = 0; i < size; i++) {
-            cout << get(i)->data;
+        Node* node = head;
+        while (node) {
+            out << node->data;
+            node = node->next;
         }
-        cout << endl;
+        return out;
     }
 
     ~LinkedList() {
