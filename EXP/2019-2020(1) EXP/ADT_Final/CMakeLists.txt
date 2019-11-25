@@ -3,4 +3,4 @@ project(ADT_Final)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(ADT_Final main.cpp LinkedList.cpp)
+add_executable(ADT_Final main.cpp BigInteger.cpp Node.h LinkedList.cpp LinkedList.h)
