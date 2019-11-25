@@ -54,11 +54,10 @@ public:
         return *this;
     }
 
-
     BigInteger &operator+(BigInteger &integer) {
         if (this->isPositive && integer.isPositive) {
-            BigInteger i0 = this->clone().trim();
-            BigInteger i1 = integer.clone().trim();
+            BigInteger i0 = this->clone();
+            BigInteger i1 = integer.clone();
             BigInteger result("0");
             int imp = 0;
             while (i0.length() > 0 && i1.length() > 0) {
@@ -407,12 +406,7 @@ public:
     BigInteger &clone() {
         Node *node = this->number.head;
         BigInteger& c = *new BigInteger("0");
-        while (node != nullptr) {
-            c.number.addLow(node->data);
-            node = node->next;
-        }
-        c.isPositive = this->isPositive;
-        c.trim();
+        c.number = *new LinkedList(number);
         return c;
     }
 

@@ -32,7 +32,7 @@ public:
             return;
         }
         for (int i = 0; i < size; i++) {
-            int b = num[size - i - 1] - 48;
+            int b = num[i] - 48;
             if (head == nullptr) {
                 head = tail = new Node(b);
                 head->prev = tail->next = nullptr;
@@ -56,9 +56,8 @@ public:
             return 0;
         } else if (size == 1) {
             int value = tail->data;
-            head = tail = new Node(0);
-            head->prev = tail->next = nullptr;
-            size = 1;
+            delete head;
+            size = 0;
             return value;
         } else {
             int value = tail->data;
@@ -81,9 +80,8 @@ public:
             return 0;
         } else if (size == 1) {
             int value = head->data;
-            head = tail = new Node(0);
-            head->prev = tail->next = nullptr;
-            size = 1;
+            delete tail;
+            size = 0;
             return value;
         } else {
             int value = head->data;
@@ -105,10 +103,10 @@ public:
             size = 1;
             return e;
         } else {
-            head->prev = new Node(e);
-            head->prev->next = head;
-            head = head->prev;
-            head->prev = nullptr;
+            tail->next = new Node(e);
+            tail->next->prev = tail;
+            tail = tail->next;
+            tail->next = nullptr;
             size++;
             return e;
         }
@@ -123,10 +121,10 @@ public:
             size = 1;
             return e;
         } else {
-            tail->next = new Node(e);
-            tail->next->prev = tail;
-            tail = tail->prev;
-            tail->next = nullptr;
+            head->prev = new Node(e);
+            head->prev->next = head;
+            head = head->prev;
+            head->prev = nullptr;
             size++;
             return e;
         }
@@ -142,6 +140,7 @@ public:
 
     LinkedList(LinkedList& list) {
         Node* node = list.head;
+        this->size = list.size;
         while(node) {
             if (head == nullptr) {
                 head = tail = new Node(node->data);
@@ -149,18 +148,20 @@ public:
             } else {
                 Node *_node = new Node(node->data);
                 _node->next = head;
+                head->prev = _node;
                 head = _node;
+                head->prev = nullptr;
             }
             node = node->next;
         }
     }
 
     friend ostream& operator<<(ostream& out, LinkedList& list) {
-        if (list.head == nullptr) {
+        Node* node = list.tail;
+        if (node == nullptr) {
             out << 0;
         } else {
-            Node* node = list.tail;
-            while (node) {
+            while (node != nullptr) {
                 out << node->data;
                 node = node->prev;
             }
@@ -170,9 +171,13 @@ public:
 
     ~LinkedList() {
         Node* node = head;
-        while (node) {
-            head = node->next;
-            delete node;
+        if(head == nullptr) {
+            return;
         }
+        while (node->next) {
+            node = node->next;
+            delete node->prev;
+        }
+        delete node;
     }
 };
