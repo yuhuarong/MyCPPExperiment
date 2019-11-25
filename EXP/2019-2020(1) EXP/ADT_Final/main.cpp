@@ -1,4 +1,4 @@
-#include "BigInteger.cpp"
+#include "BigInteger.h"
 #include <iostream>
 #include <ctime>
 
