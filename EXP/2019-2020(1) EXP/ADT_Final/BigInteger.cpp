@@ -169,6 +169,48 @@ BigInteger &BigInteger::operator*(BigInteger &integer) {
     }
 }
 
+void BigInteger::operator*=(int e) {
+    int imp = 0;
+    Node* node = number.head;
+    while (node) {
+        int d = node->data * e + imp;
+        node->data = d % 10;
+        imp = d / 10;
+        node = node->next;
+    }
+    if (imp > 0) {
+        number.addHigh(imp);
+    }
+}
+
+BigInteger *BigInteger::multi(BigInteger* integer) {
+    auto* result = new BigInteger("0");
+    int size0 = this->length();
+    int size1 = integer->length();
+    result->add0(size0 + size1 - 1);
+
+    Node* result_head = result->number.head;
+    Node* int_head = integer->number.head;
+    while (int_head) {
+        Node* temp_result_head = result_head;
+        int imp = 0;
+        Node* this_head = this->number.head;
+        while (this_head) {
+            int d = this_head->data * int_head->data + imp + result_head->data;
+            result_head->data = d % 10;
+            imp = d / 10;
+            this_head = this_head->next;
+            result_head = result_head->next;
+        }
+        result_head->data += imp;
+        int_head = int_head->next;
+        result_head = temp_result_head->next;
+    }
+    result->trim();
+
+    return result;
+}
+
 BigInteger &BigInteger::operator*(int e) {
     if (this->isPositive && e > 0) {
         BigInteger i0 = this->clone().trim();
@@ -426,17 +468,38 @@ BigInteger &BigInteger::powMod(const string &integer0, const string &integer1, i
     BigInteger int2("2");
     if (i0.isPositive && i1.isPositive) {
         BigInteger result("1");
-        i0 = i0 % _m;
+        i0.mod(_m);
         while (i1 > int0) {
-            if (i1.number.getLow() % 2 == 1) {
-                result = (result * i0) % _m;
+            if (i1.number.getLow() & 1) {
+                result = (result * i0).mod(_m);
             }
             i1 = i1 / int2;
-            i0 = (i0 * i0) % _m;
+            i0 = (i0 * i0).mod(_m);
         }
-        // result.trim();
         return result.clone();
     } else {
         return int0.clone();
     }
+}
+
+void BigInteger::divide2() {
+    int imp = 0;
+    Node* node = number.tail;
+    while (node) {
+        if (imp == 0) {
+            imp = node->data & 1;
+            node->data >>= 1;
+        } else {
+            imp = node->data & 1;
+            node->data = (10 + node->data) >> 1;
+        }
+        node = node->prev;
+    }
+}
+
+BigInteger& BigInteger::mod(int i) {
+    while (this->length() > i) {
+        this->number.removeHigh();
+    }
+    return *this;
 }

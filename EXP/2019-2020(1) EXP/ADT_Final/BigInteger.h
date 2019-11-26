@@ -44,6 +44,10 @@ public:
 
     static BigInteger &singleMulti(BigInteger &integer, int e);
 
+    void operator*=(int e);
+
+    BigInteger* multi(BigInteger* integer);
+
     void add0(int num);
 
     static void addLast(BigInteger &last, BigInteger &result, int imp);
@@ -58,7 +62,11 @@ public:
 
     BigInteger &clone();
 
-    BigInteger &operator-();;
+    BigInteger &operator-();
+
+    void divide2();
+
+    BigInteger& mod(int i);
 
     static BigInteger &addMod(const string &integer0, const string &integer1, int _m);
 
