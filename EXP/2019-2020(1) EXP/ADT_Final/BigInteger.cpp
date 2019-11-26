@@ -28,7 +28,7 @@ bool BigInteger::check(const string &num) {
 }
 
 void BigInteger::print() {
-    cout << (isPositive ? '+' : '-') << number << endl;
+    cout << *this << endl;
 }
 
 int BigInteger::length() {
@@ -440,7 +440,6 @@ BigInteger& BigInteger::powMod(const string &integer0, const string &integer1, i
     BigInteger i0(integer0);
     BigInteger i1(integer1);
     BigInteger int0("0");
-    BigInteger int2("2");
     if (i0.isPositive && i1.isPositive) {
         auto* result = new BigInteger("1");
         i0.mod(_m);
@@ -449,7 +448,7 @@ BigInteger& BigInteger::powMod(const string &integer0, const string &integer1, i
                 result = &(result->multi(&i0))->mod(_m);
             }
             i1.divide2();
-            i0 = (i0.multi(&i0))->mod(_m);
+            i0 = i0.multi(&i0)->mod(_m);
         }
         return *result;
     } else {
@@ -477,4 +476,12 @@ BigInteger& BigInteger::mod(int i) {
         this->number.removeHigh();
     }
     return *this;
+}
+
+ostream &operator<<(ostream &out, BigInteger &integer) {
+    if (!integer.isPositive) {
+        out << "-";
+    }
+    out << integer.number;
+    return out;
 }

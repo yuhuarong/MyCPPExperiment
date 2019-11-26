@@ -44,8 +44,6 @@ public:
 
     static BigInteger &singleMulti(BigInteger &integer, int e);
 
-    void operator*=(int e);
-
     BigInteger* multi(BigInteger* integer);
 
     void add0(int num);
@@ -65,6 +63,8 @@ public:
     BigInteger &operator-();
 
     void divide2();
+
+    friend ostream& operator<<(ostream& out, BigInteger& integer);
 
     BigInteger& mod(int i);
 
