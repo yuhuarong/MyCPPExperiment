@@ -139,18 +139,7 @@ BigInteger &BigInteger::operator-(BigInteger &integer) {
 
 BigInteger &BigInteger::operator*(BigInteger &integer) {
     if (this->isPositive && integer.isPositive) {
-        BigInteger i0 = this->clone().trim();
-        BigInteger i1 = integer.clone().trim();
-        BigInteger result("0");
-        int size = i1.length();
-        for (int i = 0; i < size; i++) {
-            int e = i1.number.getLow();
-            BigInteger temp = singleMulti(i0, e);
-            temp.add0(i);
-            result = result + temp;
-            i1.number.removeLow();
-        }
-        return result.clone();
+        return this->multi(&integer)->clone();
     } else if (!this->isPositive && !integer.isPositive) {
         BigInteger i0 = -this->clone();
         BigInteger i1 = -integer.clone();
@@ -166,20 +155,6 @@ BigInteger &BigInteger::operator*(BigInteger &integer) {
         BigInteger i1 = integer.clone();
         BigInteger &result = -(i0 * i1);
         return result;
-    }
-}
-
-void BigInteger::operator*=(int e) {
-    int imp = 0;
-    Node* node = number.head;
-    while (node) {
-        int d = node->data * e + imp;
-        node->data = d % 10;
-        imp = d / 10;
-        node = node->next;
-    }
-    if (imp > 0) {
-        number.addHigh(imp);
     }
 }
 
@@ -461,22 +436,22 @@ BigInteger &BigInteger::multiMod(const string &integer0, const string &integer1,
     return (*new BigInteger(integer0) * *new BigInteger(integer1)) % _m;
 }
 
-BigInteger &BigInteger::powMod(const string &integer0, const string &integer1, int _m) {
+BigInteger& BigInteger::powMod(const string &integer0, const string &integer1, int _m) {
     BigInteger i0(integer0);
     BigInteger i1(integer1);
     BigInteger int0("0");
     BigInteger int2("2");
     if (i0.isPositive && i1.isPositive) {
-        BigInteger result("1");
+        auto* result = new BigInteger("1");
         i0.mod(_m);
         while (i1 > int0) {
             if (i1.number.getLow() & 1) {
-                result = (result * i0).mod(_m);
+                result = &(result->multi(&i0))->mod(_m);
             }
-            i1 = i1 / int2;
-            i0 = (i0 * i0).mod(_m);
+            i1.divide2();
+            i0 = (i0.multi(&i0))->mod(_m);
         }
-        return result.clone();
+        return *result;
     } else {
         return int0.clone();
     }
